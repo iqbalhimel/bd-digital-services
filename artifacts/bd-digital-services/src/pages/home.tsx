@@ -353,11 +353,9 @@ export default function Home() {
         )}
       </Helmet>
       {individualProductSchemas.map((product) => (
-        <script
-          key={product.id}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildProductSchema(product)) }}
-        />
+        <Helmet key={product.id}>
+          <script type="application/ld+json">{JSON.stringify(buildProductSchema(product))}</script>
+        </Helmet>
       ))}
       {/* Notice Banner — always visible */}
       <div className="relative overflow-hidden bg-gradient-to-r from-violet-600 via-fuchsia-600 to-cyan-600 py-2.5">
