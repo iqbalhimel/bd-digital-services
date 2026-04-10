@@ -2,7 +2,11 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { setAuthTokenGetter } from "@workspace/api-client-react";
 import NotFound from "@/pages/not-found";
+
+// Provide admin token from localStorage on every API call
+setAuthTokenGetter(() => localStorage.getItem("admin_token"));
 
 import Home from "@/pages/home";
 import AdminLogin from "@/pages/admin/login";

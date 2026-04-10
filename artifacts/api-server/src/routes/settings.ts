@@ -1,7 +1,6 @@
 import { Router, type IRouter } from "express";
 import { eq } from "drizzle-orm";
 import { db, siteSettingsTable } from "@workspace/db";
-import { UpdateSettingsBody } from "@workspace/api-zod";
 
 const router: IRouter = Router();
 
@@ -33,48 +32,6 @@ async function ensureDefaultSettings() {
 
 router.get("/settings", async (_req, res): Promise<void> => {
   await ensureDefaultSettings();
-  const rows = await db.select().from(siteSettingsTable);
-  const settings: Record<string, string> = {};
-  for (const row of rows) {
-    settings[row.key] = row.value;
-  }
-  const result = {
-    siteName: settings.siteName ?? DEFAULT_SETTINGS.siteName,
-    whatsapp: settings.whatsapp ?? DEFAULT_SETTINGS.whatsapp,
-    telegram: settings.telegram ?? DEFAULT_SETTINGS.telegram,
-    bkashNumber: settings.bkashNumber ?? DEFAULT_SETTINGS.bkashNumber,
-    nagadNumber: settings.nagadNumber ?? DEFAULT_SETTINGS.nagadNumber,
-    rocketNumber: settings.rocketNumber ?? DEFAULT_SETTINGS.rocketNumber,
-    footerText: settings.footerText ?? DEFAULT_SETTINGS.footerText,
-    primaryColor: settings.primaryColor ?? DEFAULT_SETTINGS.primaryColor,
-    secondaryColor: settings.secondaryColor ?? DEFAULT_SETTINGS.secondaryColor,
-    accentColor: settings.accentColor ?? DEFAULT_SETTINGS.accentColor,
-  };
-  res.json(result);
-});
-
-router.put("/settings", async (req, res): Promise<void> => {
-  const parsed = UpdateSettingsBody.safeParse(req.body);
-  if (!parsed.success) {
-    res.status(400).json({ error: parsed.error.message });
-    return;
-  }
-  for (const [key, value] of Object.entries(parsed.data)) {
-    if (value === undefined) continue;
-    const existing = await db
-      .select()
-      .from(siteSettingsTable)
-      .where(eq(siteSettingsTable.key, key))
-      .limit(1);
-    if (existing.length > 0) {
-      await db
-        .update(siteSettingsTable)
-        .set({ value: value as string })
-        .where(eq(siteSettingsTable.key, key));
-    } else {
-      await db.insert(siteSettingsTable).values({ key, value: value as string });
-    }
-  }
   const rows = await db.select().from(siteSettingsTable);
   const settings: Record<string, string> = {};
   for (const row of rows) {
