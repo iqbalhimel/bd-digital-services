@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
 import { db, ordersTable, productsTable } from "@workspace/db";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { CreateOrderBody } from "@workspace/api-zod";
 import { requireAdmin } from "../middlewares/auth";
 
@@ -22,7 +22,7 @@ router.get("/orders", requireAdmin, async (_req, res): Promise<void> => {
     })
     .from(ordersTable)
     .leftJoin(productsTable, eq(ordersTable.productId, productsTable.id))
-    .orderBy(ordersTable.createdAt);
+    .orderBy(desc(ordersTable.createdAt));
   res.json(rows);
 });
 

@@ -1,7 +1,6 @@
 import { Router, type IRouter } from "express";
 import { db, productsTable, categoriesTable, ordersTable } from "@workspace/db";
-import { eq } from "drizzle-orm";
-import { count } from "drizzle-orm";
+import { count, desc, eq } from "drizzle-orm";
 
 const router: IRouter = Router();
 
@@ -23,7 +22,7 @@ router.get("/stats", async (_req, res): Promise<void> => {
   const recentOrders = await db
     .select()
     .from(ordersTable)
-    .orderBy(ordersTable.createdAt)
+    .orderBy(desc(ordersTable.createdAt))
     .limit(5);
 
   res.json({

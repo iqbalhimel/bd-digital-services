@@ -65,7 +65,8 @@ pnpm start
 ### Admin Panel
 
 - URL: `https://yourdomain.com/admin`
-- Default credentials: `admin` / `admin123` (change via env vars before launch!)
+- Credentials: set via `ADMIN_USERNAME` (default: `admin`) and `ADMIN_PASSWORD` env vars
+- **Always set `ADMIN_PASSWORD` and `ADMIN_SECRET` in production before launch**
 
 ### Seeding
 
