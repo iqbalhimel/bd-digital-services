@@ -25,7 +25,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { CheckCircle2, ChevronRight, ShoppingCart, Zap, Shield, HeadphonesIcon, Globe, CreditCard, MessageCircle, Package, Send, Star } from "lucide-react";
-import type { Product } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { Product } from "@workspace/api-client-react";
 
 // FAQ Data
 const FAQS = [

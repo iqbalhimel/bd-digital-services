@@ -41,7 +41,7 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Edit, Trash2 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
-import type { Category, CreateCategoryBody } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { Category, CreateCategoryBody } from "@workspace/api-client-react";
 
 export default function AdminCategories() {
   const [location, setLocation] = useLocation();

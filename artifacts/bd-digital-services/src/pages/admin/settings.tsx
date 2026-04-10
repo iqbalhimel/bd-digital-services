@@ -13,7 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import type { SiteSettings } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { SiteSettings } from "@workspace/api-client-react";
 
 export default function AdminSettings() {
   const [location, setLocation] = useLocation();
@@ -51,7 +51,7 @@ export default function AdminSettings() {
   const updateMutation = useUpdateSettings();
 
   const handleInputChange = (field: keyof SiteSettings, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev: SiteSettings) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {

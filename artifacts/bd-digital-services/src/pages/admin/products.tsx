@@ -45,7 +45,7 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Edit, Trash2 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
-import type { Product, CreateProductBody } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { Product, CreateProductBody } from "@workspace/api-client-react";
 
 export default function AdminProducts() {
   const [location, setLocation] = useLocation();
