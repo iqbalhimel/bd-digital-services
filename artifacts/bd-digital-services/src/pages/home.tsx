@@ -296,6 +296,29 @@ export default function Home() {
     }))
   };
 
+  const buildProductSchema = (product: { nameEn: string; descriptionEn?: string | null; priceBdt?: string | number | null; imageUrl?: string | null }) => ({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.nameEn,
+    "description": product.descriptionEn || `Buy ${product.nameEn} at the best price in Bangladesh`,
+    "url": "https://bddigitalservices.com",
+    ...(product.imageUrl ? { "image": product.imageUrl } : {}),
+    "brand": {
+      "@type": "Brand",
+      "name": "BD Digital Services"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "BDT",
+      ...(parseFloat(String(product.priceBdt ?? 0)) > 0 ? { "price": String(product.priceBdt) } : {}),
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "BD Digital Services"
+      }
+    }
+  });
+
   const productListJsonLd = allActiveProducts && allActiveProducts.length > 0
     ? {
         "@context": "https://schema.org",
@@ -306,25 +329,12 @@ export default function Home() {
         "itemListElement": allActiveProducts.map((product, index) => ({
           "@type": "ListItem",
           "position": index + 1,
-          "item": {
-            "@type": "Product",
-            "name": product.nameEn,
-            "description": product.descriptionEn || `Buy ${product.nameEn} at the best price in Bangladesh`,
-            "url": "https://bddigitalservices.com",
-            "offers": {
-              "@type": "Offer",
-              "priceCurrency": "BDT",
-              "price": parseFloat(String(product.priceBdt)) > 0 ? String(product.priceBdt) : undefined,
-              "availability": "https://schema.org/InStock",
-              "seller": {
-                "@type": "Organization",
-                "name": "BD Digital Services"
-              }
-            }
-          }
+          "item": buildProductSchema(product)
         }))
       }
     : null;
+
+  const individualProductSchemas = allActiveProducts ?? [];
 
   return (
     <MainLayout>
@@ -342,6 +352,13 @@ export default function Home() {
           <script type="application/ld+json">{JSON.stringify(productListJsonLd)}</script>
         )}
       </Helmet>
+      {individualProductSchemas.map((product) => (
+        <script
+          key={product.id}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildProductSchema(product)) }}
+        />
+      ))}
       {/* Notice Banner — always visible */}
       <div className="relative overflow-hidden bg-gradient-to-r from-violet-600 via-fuchsia-600 to-cyan-600 py-2.5">
         <div className="flex whitespace-nowrap animate-marquee">
