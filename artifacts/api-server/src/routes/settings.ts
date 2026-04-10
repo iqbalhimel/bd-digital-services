@@ -6,8 +6,8 @@ const router: IRouter = Router();
 
 const DEFAULT_SETTINGS: Record<string, string> = {
   siteName: "BD Digital Services",
-  whatsapp: "+8801572792499",
-  telegram: "+8801572792499",
+  whatsapp: "https://wa.me/8801572792499",
+  telegram: "https://t.me/+8801572792499",
   bkashNumber: "01687476714",
   nagadNumber: "01687476714",
   rocketNumber: "01687476714",

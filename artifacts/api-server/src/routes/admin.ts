@@ -4,8 +4,16 @@ import { createHmac } from "crypto";
 
 const router: IRouter = Router();
 
+function getAdminSecret(): string {
+  const secret = process.env.ADMIN_SECRET;
+  if (!secret && process.env.NODE_ENV === "production") {
+    throw new Error("ADMIN_SECRET environment variable is required in production");
+  }
+  return secret ?? "bd-digital-services-dev-secret";
+}
+
 function generateToken(username: string): string {
-  const secret = process.env.ADMIN_SECRET ?? "bd-digital-services-secret";
+  const secret = getAdminSecret();
   const timestamp = Date.now().toString();
   const hmac = createHmac("sha256", secret)
     .update(`${username}:${timestamp}`)
@@ -20,11 +28,19 @@ router.post("/admin/login", async (req, res): Promise<void> => {
     return;
   }
   const adminUsername = process.env.ADMIN_USERNAME ?? "admin";
-  const adminPassword = process.env.ADMIN_PASSWORD ?? "admin123";
+  const adminPassword = process.env.ADMIN_PASSWORD;
+
+  if (!adminPassword && process.env.NODE_ENV === "production") {
+    req.log.error("ADMIN_PASSWORD is not set in production");
+    res.status(500).json({ error: "Server configuration error" });
+    return;
+  }
+
+  const effectivePassword = adminPassword ?? "admin123";
 
   if (
     parsed.data.username !== adminUsername ||
-    parsed.data.password !== adminPassword
+    parsed.data.password !== effectivePassword
   ) {
     req.log.warn({ username: parsed.data.username }, "Failed admin login");
     res.status(401).json({ error: "ভুল username বা password" });

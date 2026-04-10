@@ -7,7 +7,7 @@ function verifyToken(token: string): boolean {
     if (parts.length !== 3) return false;
     const [encodedUsername, timestamp, hmac] = parts;
     const username = Buffer.from(encodedUsername, "base64").toString("utf8");
-    const secret = process.env.ADMIN_SECRET ?? "bd-digital-services-secret";
+    const secret = process.env.ADMIN_SECRET ?? "bd-digital-services-dev-secret";
     const expected = createHmac("sha256", secret)
       .update(`${username}:${timestamp}`)
       .digest("hex");

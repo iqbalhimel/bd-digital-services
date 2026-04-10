@@ -331,6 +331,23 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Notice"
+    put:
+      operationId: updateNotice
+      tags: [notices]
+      summary: Update active notice (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNoticeBody"
+      responses:
+        "200":
+          description: Updated notice
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Notice"
 
   /admin/login:
     post:
