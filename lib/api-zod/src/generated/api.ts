@@ -220,6 +220,7 @@ export const ListOrdersResponseItem = zod.object({
   productName: zod.string().nullish(),
   paymentMethod: zod.string(),
   message: zod.string().nullish(),
+  status: zod.string(),
   createdAt: zod.string(),
 });
 export const ListOrdersResponse = zod.array(ListOrdersResponseItem);
@@ -234,6 +235,30 @@ export const CreateOrderBody = zod.object({
   productId: zod.number().nullish(),
   paymentMethod: zod.string(),
   message: zod.string().nullish(),
+});
+
+/**
+ * @summary Update order status (admin)
+ */
+export const UpdateOrderStatusParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const UpdateOrderStatusBody = zod.object({
+  status: zod.enum(["pending", "processing", "completed", "cancelled"]),
+});
+
+export const UpdateOrderStatusResponse = zod.object({
+  id: zod.number(),
+  customerName: zod.string(),
+  phone: zod.string(),
+  email: zod.string().nullish(),
+  productId: zod.number().nullish(),
+  productName: zod.string().nullish(),
+  paymentMethod: zod.string(),
+  message: zod.string().nullish(),
+  status: zod.string(),
+  createdAt: zod.string(),
 });
 
 /**
@@ -310,6 +335,23 @@ export const CreateNoticeResponse = zod.object({
 });
 
 /**
+ * @summary Update active notice (admin)
+ */
+export const UpdateNoticeBody = zod.object({
+  messageBn: zod.string(),
+  messageEn: zod.string(),
+  isActive: zod.boolean().optional(),
+});
+
+export const UpdateNoticeResponse = zod.object({
+  id: zod.number(),
+  messageBn: zod.string(),
+  messageEn: zod.string(),
+  isActive: zod.boolean(),
+  createdAt: zod.string(),
+});
+
+/**
  * @summary Admin login
  */
 export const AdminLoginBody = zod.object({
@@ -340,6 +382,7 @@ export const GetStatsResponse = zod.object({
       productName: zod.string().nullish(),
       paymentMethod: zod.string(),
       message: zod.string().nullish(),
+      status: zod.string(),
       createdAt: zod.string(),
     }),
   ),

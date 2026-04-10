@@ -20,8 +20,20 @@ router.get("/stats", async (_req, res): Promise<void> => {
     .where(eq(productsTable.isActive, true));
 
   const recentOrders = await db
-    .select()
+    .select({
+      id: ordersTable.id,
+      customerName: ordersTable.customerName,
+      phone: ordersTable.phone,
+      email: ordersTable.email,
+      productId: ordersTable.productId,
+      paymentMethod: ordersTable.paymentMethod,
+      message: ordersTable.message,
+      status: ordersTable.status,
+      createdAt: ordersTable.createdAt,
+      productName: productsTable.nameEn,
+    })
     .from(ordersTable)
+    .leftJoin(productsTable, eq(ordersTable.productId, productsTable.id))
     .orderBy(desc(ordersTable.createdAt))
     .limit(5);
 
@@ -30,10 +42,7 @@ router.get("/stats", async (_req, res): Promise<void> => {
     totalCategories: Number(totalCategoriesResult?.count ?? 0),
     totalOrders: Number(totalOrdersResult?.count ?? 0),
     activeProducts: Number(activeProductsResult?.count ?? 0),
-    recentOrders: recentOrders.map((o) => ({
-      ...o,
-      productName: null,
-    })),
+    recentOrders,
   });
 });
 

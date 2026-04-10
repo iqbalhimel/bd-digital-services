@@ -10,6 +10,7 @@ export const ordersTable = pgTable("orders", {
   productId: integer("product_id"),
   paymentMethod: text("payment_method").notNull(),
   message: text("message"),
+  status: text("status").notNull().default("pending"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 

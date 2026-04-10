@@ -15,6 +15,13 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 
+const STATUS_COLORS: Record<string, string> = {
+  pending: "bg-yellow-100 text-yellow-800 border-yellow-200",
+  processing: "bg-blue-100 text-blue-800 border-blue-200",
+  completed: "bg-green-100 text-green-800 border-green-200",
+  cancelled: "bg-red-100 text-red-800 border-red-200",
+};
+
 export default function AdminDashboard() {
   const [location, setLocation] = useLocation();
 
@@ -82,13 +89,14 @@ export default function AdminDashboard() {
                   <TableHead>Customer</TableHead>
                   <TableHead>Product</TableHead>
                   <TableHead>Payment</TableHead>
+                  <TableHead>Status</TableHead>
                   <TableHead>Date</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {stats?.recentOrders?.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="text-center py-6 text-muted-foreground">
+                    <TableCell colSpan={6} className="text-center py-6 text-muted-foreground">
                       No recent orders found.
                     </TableCell>
                   </TableRow>
@@ -105,6 +113,11 @@ export default function AdminDashboard() {
                       <TableCell>{order.productName || "Unknown"}</TableCell>
                       <TableCell>
                         <Badge variant="outline" className="capitalize">{order.paymentMethod}</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold border capitalize ${STATUS_COLORS[order.status || "pending"] || "bg-gray-100 text-gray-800"}`}>
+                          {order.status || "pending"}
+                        </span>
                       </TableCell>
                       <TableCell>{format(new Date(order.createdAt), 'MMM d, yyyy')}</TableCell>
                     </TableRow>

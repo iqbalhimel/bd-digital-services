@@ -21,3 +21,6 @@ export * from "./notice";
 export * from "./order";
 export * from "./product";
 export * from "./siteSettings";
+export * from "./updateOrderStatusBody";
+export * from "./updateOrderStatusBodyStatus";
+export * from "./updateOrderStatusParams";

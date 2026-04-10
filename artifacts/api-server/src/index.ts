@@ -16,7 +16,7 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-app.listen(port, async (err) => {
+const server = app.listen(port, async (err?: Error) => {
   if (err) {
     logger.error({ err }, "Error listening on port");
     process.exit(1);
@@ -24,6 +24,21 @@ app.listen(port, async (err) => {
 
   logger.info({ port }, "Server listening");
 
-  // Seed default data (idempotent — only runs if tables are empty)
   await seedDefaultData();
+});
+
+process.on("SIGTERM", () => {
+  logger.info("SIGTERM received — closing HTTP server");
+  server.close(() => {
+    logger.info("HTTP server closed");
+    process.exit(0);
+  });
+});
+
+process.on("SIGINT", () => {
+  logger.info("SIGINT received — closing HTTP server");
+  server.close(() => {
+    logger.info("HTTP server closed");
+    process.exit(0);
+  });
 });

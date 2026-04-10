@@ -272,6 +272,43 @@ paths:
               schema:
                 $ref: "#/components/schemas/Order"
 
+  /orders/{id}/status:
+    patch:
+      operationId: updateOrderStatus
+      tags: [orders]
+      summary: Update order status (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateOrderStatusBody"
+      responses:
+        "200":
+          description: Updated order
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "400":
+          description: Invalid status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
   /settings:
     get:
       operationId: getSettings
@@ -544,6 +581,8 @@ components:
           type: string
         message:
           type: ["string", "null"]
+        status:
+          type: string
         createdAt:
           type: string
       required:
@@ -551,7 +590,25 @@ components:
         - customerName
         - phone
         - paymentMethod
+        - status
         - createdAt
+
+    UpdateOrderStatusBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, processing, completed, cancelled]
+      required:
+        - status
+
+    UpdateOrderStatusParams:
+      type: object
+      properties:
+        id:
+          type: integer
+      required:
+        - id
 
     CreateOrderBody:
       type: object

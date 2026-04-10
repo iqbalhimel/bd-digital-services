@@ -64,9 +64,9 @@ export default function AdminLogin() {
               <Label htmlFor="username">Username</Label>
               <div className="relative">
                 <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input 
-                  id="username" 
-                  placeholder="admin" 
+                <Input
+                  id="username"
+                  autoComplete="username"
                   className="pl-10"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -78,9 +78,10 @@ export default function AdminLogin() {
               <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input 
-                  id="password" 
-                  type="password" 
+                <Input
+                  id="password"
+                  type="password"
+                  autoComplete="current-password"
                   className="pl-10"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

@@ -86,7 +86,26 @@ export interface Order {
   paymentMethod: string;
   /** @nullable */
   message?: string | null;
+  status: string;
   createdAt: string;
+}
+
+export type UpdateOrderStatusBodyStatus =
+  (typeof UpdateOrderStatusBodyStatus)[keyof typeof UpdateOrderStatusBodyStatus];
+
+export const UpdateOrderStatusBodyStatus = {
+  pending: "pending",
+  processing: "processing",
+  completed: "completed",
+  cancelled: "cancelled",
+} as const;
+
+export interface UpdateOrderStatusBody {
+  status: UpdateOrderStatusBodyStatus;
+}
+
+export interface UpdateOrderStatusParams {
+  id: number;
 }
 
 export interface CreateOrderBody {
