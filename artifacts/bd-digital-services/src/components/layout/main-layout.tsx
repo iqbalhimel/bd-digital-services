@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { useGetSettings, getGetSettingsQueryKey } from "@workspace/api-client-react";
-import { MessageCircle, Send } from "lucide-react";
+import { MessageCircle, Send, Menu, X } from "lucide-react";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -8,9 +9,16 @@ interface MainLayoutProps {
 
 export function MainLayout({ children }: MainLayoutProps) {
   const { data: settings } = useGetSettings({ query: { queryKey: getGetSettingsQueryKey() } });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const whatsappLink = settings?.whatsapp || "https://wa.me/8801572792499";
   const telegramLink = settings?.telegram || "https://t.me/+8801572792499";
+
+  const navLinks = [
+    { href: "#products", label: "Products" },
+    { href: "#how-to-order", label: "How to Order" },
+    { href: "#faq", label: "FAQ" },
+  ];
 
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans">
@@ -22,16 +30,72 @@ export function MainLayout({ children }: MainLayoutProps) {
               {settings?.siteName || "BD Digital Services"}
             </div>
           </Link>
+
+          {/* Desktop Nav */}
           <nav className="hidden md:flex gap-6">
-            <a href="#products" className="text-sm font-medium hover:text-primary transition-colors">Products</a>
-            <a href="#how-to-order" className="text-sm font-medium hover:text-primary transition-colors">How to Order</a>
-            <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
+            {navLinks.map(link => (
+              <a key={link.href} href={link.href} className="text-sm font-medium hover:text-primary transition-colors">
+                {link.label}
+              </a>
+            ))}
           </nav>
-          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[#25D366] text-white px-4 py-2 rounded-full font-medium hover:bg-[#128C7E] transition-colors shadow-lg">
-            <MessageCircle className="w-4 h-4" />
-            <span className="hidden sm:inline">WhatsApp</span>
-          </a>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-[#25D366] text-white px-4 py-2 rounded-full font-medium hover:bg-[#128C7E] transition-colors shadow-lg"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span className="hidden sm:inline">WhatsApp</span>
+            </a>
+            {/* Mobile hamburger */}
+            <button
+              className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+              onClick={() => setMobileMenuOpen(o => !o)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl">
+            <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
+              {navLinks.map(link => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="py-3 px-4 rounded-xl text-sm font-semibold hover:bg-primary/5 hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+              <div className="pt-3 mt-2 border-t border-border/50 flex gap-2">
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white px-4 py-2.5 rounded-xl font-medium text-sm"
+                >
+                  <MessageCircle className="w-4 h-4" /> WhatsApp
+                </a>
+                <a
+                  href={telegramLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-2 bg-[#0088cc] text-white px-4 py-2.5 rounded-xl font-medium text-sm"
+                >
+                  <Send className="w-4 h-4" /> Telegram
+                </a>
+              </div>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Main content */}
@@ -64,17 +128,17 @@ export function MainLayout({ children }: MainLayoutProps) {
 
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
-        <a 
-          href={telegramLink} 
-          target="_blank" 
+        <a
+          href={telegramLink}
+          target="_blank"
           rel="noopener noreferrer"
           className="bg-[#0088cc] text-white p-3 rounded-full shadow-xl hover:scale-110 transition-transform"
         >
           <Send className="w-6 h-6" />
         </a>
-        <a 
-          href={whatsappLink} 
-          target="_blank" 
+        <a
+          href={whatsappLink}
+          target="_blank"
           rel="noopener noreferrer"
           className="bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:scale-110 transition-transform"
         >
