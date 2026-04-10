@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
+import { Helmet } from "react-helmet-async";
 import { 
   LayoutDashboard, 
   Package, 
@@ -37,6 +38,10 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 flex flex-col md:flex-row">
+      <Helmet>
+        <title>Admin Panel | BD Digital Services</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       {/* Mobile Header */}
       <div className="md:hidden flex items-center justify-between p-4 bg-white dark:bg-zinc-900 border-b border-border">
         <h1 className="font-bold text-lg text-primary">Admin Panel</h1>

@@ -1,4 +1,6 @@
 import { useState, useMemo } from "react";
+import { Helmet } from "react-helmet-async";
+import { SeoHead } from "@/components/seo-head";
 import { MainLayout } from "@/components/layout/main-layout";
 import {
   useGetActiveNotice,
@@ -222,8 +224,118 @@ export default function Home() {
   const nagadNumber = settings?.nagadNumber || "01687476714";
   const rocketNumber = settings?.rocketNumber || "01687476714";
 
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "BD Digital Services",
+    "url": "https://bddigitalservices.com",
+    "description": "বাংলাদেশের বিশ্বস্ত ডিজিটাল পণ্য মার্কেটপ্লেস — Netflix, Spotify, ChatGPT, ভার্চুয়াল কার্ড সহ সব ধরনের ডিজিটাল সেবা সর্বনিম্ন মূল্যে।",
+    "inLanguage": ["bn", "en"],
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://bddigitalservices.com/?search={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "BD Digital Services",
+    "url": "https://bddigitalservices.com",
+    "logo": "https://bddigitalservices.com/favicon.svg",
+    "image": "https://bddigitalservices.com/opengraph.jpg",
+    "description": "বাংলাদেশের বিশ্বস্ত ডিজিটাল পণ্য মার্কেটপ্লেস — Netflix, Spotify, ChatGPT, ভার্চুয়াল কার্ড সহ সব ধরনের ডিজিটাল পণ্য সর্বনিম্ন মূল্যে।",
+    "foundingLocation": {
+      "@type": "Place",
+      "name": "Bangladesh"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Bangladesh"
+    },
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "url": settings?.whatsapp || "https://wa.me/8801572792499",
+        "availableLanguage": ["Bengali", "English"]
+      },
+      {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "url": settings?.telegram || "https://t.me/bddigitalservices",
+        "availableLanguage": ["Bengali", "English"]
+      }
+    ],
+    "sameAs": [
+      settings?.whatsapp || "https://wa.me/8801572792499",
+      settings?.telegram || "https://t.me/bddigitalservices"
+    ]
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": FAQS.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
+  const productListJsonLd = allActiveProducts && allActiveProducts.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "BD Digital Services Products",
+        "url": "https://bddigitalservices.com",
+        "numberOfItems": allActiveProducts.length,
+        "itemListElement": allActiveProducts.map((product, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "item": {
+            "@type": "Product",
+            "name": product.nameEn,
+            "description": product.descriptionEn || `Buy ${product.nameEn} at the best price in Bangladesh`,
+            "url": "https://bddigitalservices.com",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "BDT",
+              "price": parseFloat(String(product.priceBdt)) > 0 ? String(product.priceBdt) : undefined,
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "BD Digital Services"
+              }
+            }
+          }
+        }))
+      }
+    : null;
+
   return (
     <MainLayout>
+      <SeoHead
+        title="BD Digital Services | বাংলাদেশের সেরা ডিজিটাল পণ্য মার্কেটপ্লেস"
+        description="BD Digital Services — বাংলাদেশের বিশ্বস্ত ডিজিটাল পণ্য মার্কেটপ্লেস। Netflix, Spotify, ChatGPT, ক্রেডিট কার্ড, ভার্চুয়াল কার্ড সহ সব ধরনের ডিজিটাল সেবা সর্বনিম্ন মূল্যে। বিকাশ, নগদ ও রকেটে পেমেন্ট সুবিধা।"
+        canonicalUrl="https://bddigitalservices.com/"
+        ogImage="https://bddigitalservices.com/opengraph.jpg"
+      />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(organizationJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+        {productListJsonLd && (
+          <script type="application/ld+json">{JSON.stringify(productListJsonLd)}</script>
+        )}
+      </Helmet>
       {/* Notice Banner — always visible */}
       <div className="relative overflow-hidden bg-gradient-to-r from-violet-600 via-fuchsia-600 to-cyan-600 py-2.5">
         <div className="flex whitespace-nowrap animate-marquee">
