@@ -68,4 +68,3 @@ channel = "stable-25_05"
 [userenv.shared]
 ADMIN_USERNAME = "bddigitalservices02@gmail.com"
 ADMIN_PASSWORD = "h414144635"
-ADMIN_SECRET = "8e1e2294bf4906c05cd9ba355462ec00941c96582e7edfb1630099176a026174"
