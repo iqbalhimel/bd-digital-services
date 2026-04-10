@@ -124,7 +124,7 @@ export default function AdminProducts() {
       nameEn,
       descriptionBn: descriptionBn || null,
       descriptionEn: descriptionEn || null,
-      categoryId: categoryId ? parseInt(categoryId) : null,
+      categoryId: categoryId && categoryId !== "none" ? parseInt(categoryId) : null,
       priceBdt,
       priceUsd,
       badge: badge || null,
