@@ -220,7 +220,7 @@ export const ListOrdersResponseItem = zod.object({
   productName: zod.string().nullish(),
   paymentMethod: zod.string(),
   message: zod.string().nullish(),
-  status: zod.string(),
+  status: zod.enum(["pending", "processing", "completed", "cancelled"]),
   createdAt: zod.string(),
 });
 export const ListOrdersResponse = zod.array(ListOrdersResponseItem);
@@ -257,7 +257,7 @@ export const UpdateOrderStatusResponse = zod.object({
   productName: zod.string().nullish(),
   paymentMethod: zod.string(),
   message: zod.string().nullish(),
-  status: zod.string(),
+  status: zod.enum(["pending", "processing", "completed", "cancelled"]),
   createdAt: zod.string(),
 });
 
@@ -382,7 +382,7 @@ export const GetStatsResponse = zod.object({
       productName: zod.string().nullish(),
       paymentMethod: zod.string(),
       message: zod.string().nullish(),
-      status: zod.string(),
+      status: zod.enum(["pending", "processing", "completed", "cancelled"]),
       createdAt: zod.string(),
     }),
   ),

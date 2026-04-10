@@ -1,7 +1,7 @@
 import { Router, type IRouter, type Request } from "express";
 import { db, ordersTable, productsTable, orderStatusEnum } from "@workspace/db";
 import { desc, eq } from "drizzle-orm";
-import { CreateOrderBody } from "@workspace/api-zod";
+import { CreateOrderBody, UpdateOrderStatusBody } from "@workspace/api-zod";
 import { requireAdmin } from "../middlewares/auth";
 
 const router: IRouter = Router();
@@ -68,14 +68,12 @@ router.patch("/orders/:id/status", requireAdmin, async (req: Request<{ id: strin
     return;
   }
 
-  const { status } = req.body as { status?: string };
-  const isValidStatus = (s: string): s is OrderStatus =>
-    (VALID_STATUSES as readonly string[]).includes(s);
-
-  if (!status || !isValidStatus(status)) {
+  const parsed = UpdateOrderStatusBody.safeParse(req.body);
+  if (!parsed.success) {
     res.status(400).json({ error: `Invalid status. Must be one of: ${VALID_STATUSES.join(", ")}` });
     return;
   }
+  const status: OrderStatus = parsed.data.status as OrderStatus;
 
   const [updated] = await db
     .update(ordersTable)

@@ -73,6 +73,15 @@ export interface CreateProductBody {
   sortOrder?: number;
 }
 
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
+
+export const OrderStatus = {
+  pending: "pending",
+  processing: "processing",
+  completed: "completed",
+  cancelled: "cancelled",
+} as const;
+
 export interface Order {
   id: number;
   customerName: string;
@@ -86,7 +95,7 @@ export interface Order {
   paymentMethod: string;
   /** @nullable */
   message?: string | null;
-  status: string;
+  status: OrderStatus;
   createdAt: string;
 }
 
