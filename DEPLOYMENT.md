@@ -5,7 +5,7 @@
 ### Prerequisites
 - Node.js 20+
 - pnpm 9+
-- PostgreSQL database (Hostinger provides one)
+- PostgreSQL database (Hostinger provides one via hPanel)
 
 ### Environment Variables
 
@@ -18,50 +18,55 @@ NODE_ENV=production
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=your-secure-password
 ADMIN_SECRET=your-random-secret-key
+BASE_PATH=/
 ```
 
-### Build Steps
+> **Important:** Change `ADMIN_PASSWORD` and `ADMIN_SECRET` before going live.
+
+### One-Time Setup
 
 ```bash
-# Install dependencies
+# 1. Install dependencies
 pnpm install
 
-# Run database migrations
-pnpm --filter @workspace/db run db:push
+# 2. Run database schema migrations
+pnpm --filter @workspace/db run push
 
-# Build frontend
+# 3. Build the frontend
 pnpm --filter @workspace/bd-digital-services run build
 
-# Build API server
+# 4. Build the API server
 pnpm --filter @workspace/api-server run build
 ```
 
 ### Production Start
 
-The API server serves both the API routes (`/api/*`) and the React frontend static files in production.
-
 ```bash
 node artifacts/api-server/dist/index.mjs
+```
+
+The server automatically:
+- Serves the API at `/api/*`
+- Serves the React frontend at all other routes (SPA)
+- Seeds default categories and products on first startup (if DB is empty)
+
+Or use the root shorthand:
+
+```bash
+pnpm start
 ```
 
 ### How It Works
 
 - Frontend (React) is built to `artifacts/bd-digital-services/dist/public/`
-- The Express server serves the API at `/api/*` and static files at all other routes
-- Admin panel is at `/admin` (username/password from env vars)
+- Express serves both the API and the frontend static files from a single Node.js process
+- Admin panel at `/admin` — login with `ADMIN_USERNAME` / `ADMIN_PASSWORD`
 
 ### Admin Panel
 
 - URL: `https://yourdomain.com/admin`
-- Username: value of `ADMIN_USERNAME` env var (default: `admin`)
-- Password: value of `ADMIN_PASSWORD` env var (default: `admin123`)
+- Default credentials: `admin` / `admin123` (change via env vars before launch!)
 
-**Change these before going live!**
+### Seeding
 
-### Seeding Initial Data
-
-Categories and products can be seeded via the admin panel at `/admin/products` and `/admin/categories`.
-
-Default site settings (WhatsApp, bKash number, etc.) are set automatically on first API call to `/api/settings`.
-
-To change them, log in to the admin panel and go to Settings.
+Default data (6 categories, 15 products) is seeded automatically at first startup when the tables are empty. To re-seed a fresh database, simply start the server and it will seed.
