@@ -1,10 +1,10 @@
 import { Router, type IRouter } from "express";
 import healthRouter from "./health";
-import categoriesReadRouter from "./categories";
-import productsReadRouter from "./products";
+import categoriesRouter from "./categories";
+import productsRouter from "./products";
 import ordersRouter from "./orders";
-import settingsReadRouter from "./settings";
-import noticesReadRouter from "./notices";
+import settingsRouter from "./settings";
+import noticesRouter from "./notices";
 import adminRouter from "./admin";
 import statsRouter from "./stats";
 import adminWritesRouter from "./admin-writes";
@@ -14,17 +14,21 @@ const router: IRouter = Router();
 
 // Public read-only routes
 router.use(healthRouter);
-router.use(categoriesReadRouter);
-router.use(productsReadRouter);
-router.use(settingsReadRouter);
-router.use(noticesReadRouter);
+router.use(categoriesRouter);
+router.use(productsRouter);
+router.use(settingsRouter);
+router.use(noticesRouter);
 
-// Admin authentication endpoint (public)
+// Admin authentication endpoint (public — needed to obtain token)
 router.use(adminRouter);
 
-// Admin-only routes (require valid token)
-router.use(requireAdmin, ordersRouter);
+// Orders: GET is admin-only, POST is public — handled inside the router
+router.use(ordersRouter);
+
+// Admin-only read routes
 router.use(requireAdmin, statsRouter);
-router.use(adminWritesRouter); // Auth is applied inside the router itself
+
+// Admin-only mutations (auth enforced inside the router)
+router.use(adminWritesRouter);
 
 export default router;

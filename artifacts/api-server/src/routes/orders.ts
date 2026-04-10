@@ -2,10 +2,12 @@ import { Router, type IRouter } from "express";
 import { db, ordersTable, productsTable } from "@workspace/db";
 import { eq } from "drizzle-orm";
 import { CreateOrderBody } from "@workspace/api-zod";
+import { requireAdmin } from "../middlewares/auth";
 
 const router: IRouter = Router();
 
-router.get("/orders", async (_req, res): Promise<void> => {
+// GET /orders — admin only
+router.get("/orders", requireAdmin, async (_req, res): Promise<void> => {
   const rows = await db
     .select({
       id: ordersTable.id,
@@ -24,6 +26,7 @@ router.get("/orders", async (_req, res): Promise<void> => {
   res.json(rows);
 });
 
+// POST /orders — public (anyone can submit an order)
 router.post("/orders", async (req, res): Promise<void> => {
   const parsed = CreateOrderBody.safeParse(req.body);
   if (!parsed.success) {

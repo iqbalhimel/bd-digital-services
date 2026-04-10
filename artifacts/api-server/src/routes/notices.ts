@@ -12,7 +12,7 @@ router.get("/notice", async (_req, res): Promise<void> => {
     .orderBy(noticesTable.createdAt)
     .limit(1);
   if (!notice) {
-    res.status(404).json({ error: "No active notice" });
+    res.json(null);
     return;
   }
   res.json(notice);
