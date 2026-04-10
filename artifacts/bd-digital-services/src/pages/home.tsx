@@ -249,6 +249,12 @@ export default function Home() {
     "logo": "https://bddigitalservices.com/favicon.svg",
     "image": "https://bddigitalservices.com/opengraph.jpg",
     "description": "বাংলাদেশের বিশ্বস্ত ডিজিটাল পণ্য মার্কেটপ্লেস — Netflix, Spotify, ChatGPT, ভার্চুয়াল কার্ড সহ সব ধরনের ডিজিটাল পণ্য সর্বনিম্ন মূল্যে।",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "BD",
+      "addressLocality": "Dhaka",
+      "addressRegion": "Dhaka Division"
+    },
     "foundingLocation": {
       "@type": "Place",
       "name": "Bangladesh"
