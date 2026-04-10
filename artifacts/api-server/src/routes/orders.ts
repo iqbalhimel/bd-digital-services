@@ -1,12 +1,13 @@
-import { Router, type IRouter } from "express";
-import { db, ordersTable, productsTable } from "@workspace/db";
+import { Router, type IRouter, type Request } from "express";
+import { db, ordersTable, productsTable, orderStatusEnum } from "@workspace/db";
 import { desc, eq } from "drizzle-orm";
 import { CreateOrderBody } from "@workspace/api-zod";
 import { requireAdmin } from "../middlewares/auth";
 
 const router: IRouter = Router();
 
-const VALID_STATUSES = ["pending", "processing", "completed", "cancelled"] as const;
+type OrderStatus = (typeof orderStatusEnum.enumValues)[number];
+const VALID_STATUSES: readonly OrderStatus[] = orderStatusEnum.enumValues;
 
 // GET /orders — admin only
 router.get("/orders", requireAdmin, async (_req, res): Promise<void> => {
@@ -60,16 +61,18 @@ router.post("/orders", async (req, res): Promise<void> => {
 });
 
 // PATCH /orders/:id/status — admin only
-router.patch("/orders/:id/status", requireAdmin, async (req, res): Promise<void> => {
-  const rawId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-  const id = parseInt(rawId ?? "", 10);
+router.patch("/orders/:id/status", requireAdmin, async (req: Request<{ id: string }>, res): Promise<void> => {
+  const id = parseInt(req.params.id, 10);
   if (isNaN(id)) {
     res.status(400).json({ error: "Invalid order ID" });
     return;
   }
 
   const { status } = req.body as { status?: string };
-  if (!status || !(VALID_STATUSES as readonly string[]).includes(status)) {
+  const isValidStatus = (s: string): s is OrderStatus =>
+    (VALID_STATUSES as readonly string[]).includes(s);
+
+  if (!status || !isValidStatus(status)) {
     res.status(400).json({ error: `Invalid status. Must be one of: ${VALID_STATUSES.join(", ")}` });
     return;
   }

@@ -1,6 +1,8 @@
-import { pgTable, text, serial, timestamp, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, timestamp, integer, pgEnum } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
+
+export const orderStatusEnum = pgEnum("order_status", ["pending", "processing", "completed", "cancelled"]);
 
 export const ordersTable = pgTable("orders", {
   id: serial("id").primaryKey(),
@@ -10,7 +12,7 @@ export const ordersTable = pgTable("orders", {
   productId: integer("product_id"),
   paymentMethod: text("payment_method").notNull(),
   message: text("message"),
-  status: text("status").notNull().default("pending"),
+  status: orderStatusEnum("status").notNull().default("pending"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 

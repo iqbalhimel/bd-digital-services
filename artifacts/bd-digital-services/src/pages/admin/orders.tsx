@@ -6,6 +6,7 @@ import {
   getListOrdersQueryKey,
   useUpdateOrderStatus,
 } from "@workspace/api-client-react";
+import type { Order } from "@workspace/api-client-react";
 import {
   Table,
   TableBody,
@@ -43,25 +44,45 @@ export default function AdminOrders() {
     if (!token) setLocation("/admin");
   }, [location, setLocation]);
 
+  const ordersQueryKey = getListOrdersQueryKey();
+
   const { data: orders, isLoading } = useListOrders({
-    query: { queryKey: getListOrdersQueryKey() }
+    query: { queryKey: ordersQueryKey }
   });
 
-  const updateStatusMutation = useUpdateOrderStatus();
+  const updateStatusMutation = useUpdateOrderStatus({
+    mutation: {
+      onMutate: async ({ id, data: { status } }) => {
+        await queryClient.cancelQueries({ queryKey: ordersQueryKey });
+
+        const previous = queryClient.getQueryData<Order[]>(ordersQueryKey);
+
+        queryClient.setQueryData<Order[]>(ordersQueryKey, (old) =>
+          old?.map((o) => (o.id === id ? { ...o, status } : o)) ?? []
+        );
+
+        return { previous };
+      },
+      onError: (_err, _vars, context) => {
+        if (context?.previous) {
+          queryClient.setQueryData<Order[]>(ordersQueryKey, context.previous);
+        }
+        toast({ title: "Failed to update status", variant: "destructive" });
+      },
+      onSuccess: (_data, { id }) => {
+        toast({ title: "Status updated", description: `Order #${id} status saved.` });
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries({ queryKey: ordersQueryKey });
+      },
+    },
+  });
 
   const handleStatusChange = (orderId: number, newStatus: string) => {
-    updateStatusMutation.mutate(
-      { id: orderId, data: { status: newStatus as "pending" | "processing" | "completed" | "cancelled" } },
-      {
-        onSuccess: () => {
-          toast({ title: "Status updated", description: `Order #${orderId} marked as ${newStatus}.` });
-          queryClient.invalidateQueries({ queryKey: getListOrdersQueryKey() });
-        },
-        onError: () => {
-          toast({ title: "Failed to update status", variant: "destructive" });
-        }
-      }
-    );
+    updateStatusMutation.mutate({
+      id: orderId,
+      data: { status: newStatus as "pending" | "processing" | "completed" | "cancelled" },
+    });
   };
 
   return (
@@ -116,7 +137,6 @@ export default function AdminOrders() {
                         <Select
                           value={order.status || "pending"}
                           onValueChange={(val) => handleStatusChange(order.id, val)}
-                          disabled={updateStatusMutation.isPending}
                         >
                           <SelectTrigger className={`h-8 w-[130px] text-xs font-semibold border ${STATUS_COLORS[order.status || "pending"] || "bg-gray-100 text-gray-800"}`}>
                             <SelectValue />
