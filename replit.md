@@ -25,3 +25,41 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - `pnpm --filter @workspace/api-server run dev` — run API server locally
 
 See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
+
+## Project: BD Digital Services
+
+A bilingual (Bangla + English) digital product marketplace for bddigitalservices.com.
+
+### Architecture
+
+- `artifacts/api-server` — Express 5 REST API, serves frontend static files in production
+- `artifacts/bd-digital-services` — React + Vite frontend (public storefront + admin panel)
+- `lib/db` — Drizzle ORM schema and database client
+- `lib/api-spec` — OpenAPI YAML spec
+- `lib/api-client-react` — Orval-generated React Query hooks (from OpenAPI spec)
+- `lib/api-zod` — Orval-generated Zod schemas for request validation
+
+### API Routes (all under `/api/*`)
+
+- `GET/POST/PUT/DELETE /api/categories`
+- `GET/POST/PUT/DELETE /api/products` (with `/products/featured`)
+- `GET/POST /api/orders`
+- `GET/PUT /api/settings`
+- `GET/POST /api/notice`
+- `POST /api/admin/login`
+- `GET /api/stats`
+
+### Admin Panel
+
+- URL: `/admin`
+- Username: `ADMIN_USERNAME` env var (default: `admin`)
+- Password: `ADMIN_PASSWORD` env var (default: `admin123`)
+
+### Contact & Payments
+
+- WhatsApp/Telegram: +8801572792499
+- bKash/Nagad/Rocket: 01687476714
+
+### Deployment
+
+See `DEPLOYMENT.md` for Hostinger Node.js hosting setup.
