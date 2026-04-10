@@ -24,12 +24,12 @@ args = "GitHub Auto-Sync"
 name = "GitHub Auto-Sync"
 author = "agent"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "bash scripts/github-sync.sh"
-
 [workflows.workflow.metadata]
 outputType = "console"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash scripts/start-project.sh"
 
 [agent]
 stack = "PNPM_WORKSPACE"
