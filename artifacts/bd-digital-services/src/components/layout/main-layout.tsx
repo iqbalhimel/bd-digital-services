@@ -61,10 +61,11 @@ export function MainLayout({ children }: MainLayoutProps) {
           </div>
         </div>
 
-        {/* Mobile Drawer */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl">
-            <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
+        {/* Mobile Drawer — slides down from header */}
+        <div
+          className={`md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl overflow-hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+        >
+          <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
               {navLinks.map(link => (
                 <a
                   key={link.href}
@@ -93,9 +94,8 @@ export function MainLayout({ children }: MainLayoutProps) {
                   <Send className="w-4 h-4" /> Telegram
                 </a>
               </div>
-            </nav>
-          </div>
-        )}
+          </nav>
+        </div>
       </header>
 
       {/* Main content */}

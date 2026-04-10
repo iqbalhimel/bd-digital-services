@@ -424,20 +424,32 @@ export default function Home() {
             <p className="text-zinc-400 font-bn max-w-2xl mx-auto text-lg">খুব সহজেই অর্ডার করুন মাত্র ৩টি ধাপে</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              { step: "1", icon: Package, color: "primary", titleEn: "Choose Product", titleBn: "পছন্দের সার্ভিসটি সিলেক্ট করুন এবং প্রাইস চেক করুন।", rotate: "rotate-3", hoverRotate: "group-hover:rotate-6" },
-              { step: "2", icon: CreditCard, color: "secondary", titleEn: "Send Payment", titleBn: "বিকাশ, নগদ বা রকেটে পেমেন্ট করে নিচের ফর্মটি ফিলাপ করুন।", rotate: "-rotate-3", hoverRotate: "group-hover:-rotate-6" },
-              { step: "3", icon: CheckCircle2, color: "accent", titleEn: "Receive Account", titleBn: "৫-৩০ মিনিটের মধ্যে হোয়াটসঅ্যাপে একাউন্ট বুঝে নিন।", rotate: "rotate-3", hoverRotate: "group-hover:rotate-6" },
-            ].map(item => (
-              <div key={item.step} className="glass-card bg-white/5 border-white/10 p-8 rounded-2xl text-center hover:-translate-y-2 transition-transform duration-300 relative group">
-                <div className={`absolute top-0 right-0 p-4 text-6xl font-bold text-white/5 -z-10 group-hover:text-${item.color}/10 transition-colors`}>{item.step}</div>
-                <div className={`w-16 h-16 bg-${item.color}/20 text-${item.color} rounded-2xl flex items-center justify-center mx-auto mb-6 ${item.rotate} ${item.hoverRotate} transition-transform`}>
-                  <item.icon className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-bold mb-3">{item.titleEn}</h3>
-                <p className="text-zinc-400 font-bn">{item.titleBn}</p>
+            <div className="glass-card bg-white/5 border-white/10 p-8 rounded-2xl text-center hover:-translate-y-2 transition-transform duration-300 relative group">
+              <div className="absolute top-0 right-0 p-4 text-6xl font-bold text-white/5 -z-10 group-hover:text-violet-400/10 transition-colors">1</div>
+              <div className="w-16 h-16 bg-violet-500/20 text-violet-400 rounded-2xl flex items-center justify-center mx-auto mb-6 rotate-3 group-hover:rotate-6 transition-transform">
+                <Package className="w-8 h-8" />
               </div>
-            ))}
+              <h3 className="text-xl font-bold mb-3">Choose Product</h3>
+              <p className="text-zinc-400 font-bn">পছন্দের সার্ভিসটি সিলেক্ট করুন এবং প্রাইস চেক করুন।</p>
+            </div>
+
+            <div className="glass-card bg-white/5 border-white/10 p-8 rounded-2xl text-center hover:-translate-y-2 transition-transform duration-300 relative group">
+              <div className="absolute top-0 right-0 p-4 text-6xl font-bold text-white/5 -z-10 group-hover:text-cyan-400/10 transition-colors">2</div>
+              <div className="w-16 h-16 bg-cyan-500/20 text-cyan-400 rounded-2xl flex items-center justify-center mx-auto mb-6 -rotate-3 group-hover:-rotate-6 transition-transform">
+                <CreditCard className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Send Payment</h3>
+              <p className="text-zinc-400 font-bn">বিকাশ, নগদ বা রকেটে পেমেন্ট করে নিচের ফর্মটি ফিলাপ করুন।</p>
+            </div>
+
+            <div className="glass-card bg-white/5 border-white/10 p-8 rounded-2xl text-center hover:-translate-y-2 transition-transform duration-300 relative group">
+              <div className="absolute top-0 right-0 p-4 text-6xl font-bold text-white/5 -z-10 group-hover:text-amber-400/10 transition-colors">3</div>
+              <div className="w-16 h-16 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-6 rotate-3 group-hover:rotate-6 transition-transform">
+                <CheckCircle2 className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Receive Account</h3>
+              <p className="text-zinc-400 font-bn">৫-৩০ মিনিটের মধ্যে হোয়াটসঅ্যাপে একাউন্ট বুঝে নিন।</p>
+            </div>
           </div>
         </div>
       </section>
