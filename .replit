@@ -29,7 +29,7 @@ outputType = "console"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "bash scripts/start-project.sh"
+args = "bash scripts/github-sync.sh"
 
 [agent]
 stack = "PNPM_WORKSPACE"
