@@ -3,6 +3,7 @@ import { db, ordersTable, productsTable, orderStatusEnum } from "@workspace/db";
 import { desc, eq } from "drizzle-orm";
 import { CreateOrderBody, UpdateOrderStatusBody } from "@workspace/api-zod";
 import { requireAdmin } from "../middlewares/auth";
+import { ordersLimiter } from "../middlewares/rateLimits";
 
 const router: IRouter = Router();
 
@@ -30,8 +31,8 @@ router.get("/orders", requireAdmin, async (_req, res): Promise<void> => {
   res.json(rows);
 });
 
-// POST /orders — public (anyone can submit an order)
-router.post("/orders", async (req, res): Promise<void> => {
+// POST /orders — public (anyone can submit an order), rate-limited
+router.post("/orders", ordersLimiter, async (req, res): Promise<void> => {
   const parsed = CreateOrderBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: parsed.error.message });

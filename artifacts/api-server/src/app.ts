@@ -36,7 +36,7 @@ const corsOptions: cors.CorsOptions = {
     if (allowed) {
       callback(null, true);
     } else {
-      callback(new Error("CORS: origin not allowed"));
+      callback(null, false);
     }
   },
   credentials: true,
@@ -47,6 +47,33 @@ const app: Express = express();
 // Trust the first proxy hop (Replit / Cloudflare / Hostinger reverse proxy)
 // so that rate limiting uses the real client IP from X-Forwarded-For
 app.set("trust proxy", 1);
+
+// Helmet first — sets security headers on every response
+app.use(
+  helmet({
+    contentSecurityPolicy: isProduction
+      ? {
+          directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            imgSrc: ["'self'", "data:", "https:"],
+            connectSrc: ["'self'"],
+            fontSrc: ["'self'", "https:", "data:"],
+            objectSrc: ["'none'"],
+            frameSrc: ["'none'"],
+            upgradeInsecureRequests: [],
+          },
+        }
+      : false,
+    hsts: isProduction
+      ? { maxAge: 31536000, includeSubDomains: true, preload: true }
+      : false,
+    frameguard: { action: "deny" },
+    noSniff: true,
+    xssFilter: true,
+  }),
+);
 
 app.use(
   pinoHttp({
@@ -77,33 +104,21 @@ app.use(
   }),
 );
 
-app.use(
-  helmet({
-    contentSecurityPolicy: isProduction
-      ? {
-          directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'"],
-            styleSrc: ["'self'", "'unsafe-inline'"],
-            imgSrc: ["'self'", "data:", "https:"],
-            connectSrc: ["'self'"],
-            fontSrc: ["'self'", "https:", "data:"],
-            objectSrc: ["'none'"],
-            frameSrc: ["'none'"],
-            upgradeInsecureRequests: [],
-          },
-        }
-      : false,
-    hsts: isProduction
-      ? { maxAge: 31536000, includeSubDomains: true, preload: true }
-      : false,
-    frameguard: { action: "deny" },
-    noSniff: true,
-    xssFilter: true,
-  }),
-);
-
+// CORS — pass false for denied origins; a custom handler returns 403
 app.use(cors(corsOptions));
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const origin = req.headers.origin;
+  if (origin) {
+    const allowed = allowedOrigins.some((o) =>
+      typeof o === "string" ? o === origin : o.test(origin),
+    );
+    if (!allowed && !res.headersSent) {
+      res.status(403).json({ error: "CORS: origin not allowed" });
+      return;
+    }
+  }
+  next();
+});
 
 app.use(express.json({ limit: "50kb" }));
 app.use(express.urlencoded({ extended: true, limit: "50kb" }));
@@ -118,7 +133,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-app.use(globalLimiter);
+// Global rate limiter — skip health endpoints so uptime monitors always pass
+const HEALTH_PATHS = new Set(["/api/health", "/api/healthz"]);
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (HEALTH_PATHS.has(req.path)) {
+    next();
+    return;
+  }
+  globalLimiter(req, res, next);
+});
 
 app.use("/api", router);
 

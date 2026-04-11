@@ -9,7 +9,7 @@ import adminRouter from "./admin";
 import statsRouter from "./stats";
 import adminWritesRouter from "./admin-writes";
 import { requireAdmin } from "../middlewares/auth";
-import { ordersLimiter, adminLimiter } from "../middlewares/rateLimits";
+import { adminLimiter } from "../middlewares/rateLimits";
 
 const router: IRouter = Router();
 
@@ -25,8 +25,8 @@ router.use(noticesRouter);
 // Admin authentication endpoint — loginLimiter applied inside admin.ts
 router.use(adminRouter);
 
-// Orders: GET is admin-only, POST is public — rate-limited per minute
-router.use(ordersLimiter, ordersRouter);
+// Orders router — ordersLimiter is applied inside orders.ts to POST only
+router.use(ordersRouter);
 
 // Admin-only read routes
 router.use(adminLimiter, requireAdmin, statsRouter);
