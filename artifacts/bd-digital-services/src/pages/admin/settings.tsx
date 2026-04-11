@@ -93,6 +93,13 @@ export default function AdminSettings() {
     );
   }
 
+  const heroStats = [
+    { valueKey: "heroStat1Value" as keyof SiteSettings, labelKey: "heroStat1Label" as keyof SiteSettings, placeholder: { value: "1000+", label: "সন্তুষ্ট গ্রাহক" } },
+    { valueKey: "heroStat2Value" as keyof SiteSettings, labelKey: "heroStat2Label" as keyof SiteSettings, placeholder: { value: "15+", label: "প্রোডাক্ট" } },
+    { valueKey: "heroStat3Value" as keyof SiteSettings, labelKey: "heroStat3Label" as keyof SiteSettings, placeholder: { value: "24/7", label: "সাপোর্ট" } },
+    { valueKey: "heroStat4Value" as keyof SiteSettings, labelKey: "heroStat4Label" as keyof SiteSettings, placeholder: { value: "5-30 Min", label: "ডেলিভারি" } },
+  ];
+
   return (
     <AdminLayout>
       <div className="space-y-6 max-w-4xl mx-auto">
@@ -102,34 +109,8 @@ export default function AdminSettings() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>General Information</CardTitle>
-              <CardDescription>Basic details about your marketplace.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="siteName">Site Name</Label>
-                <Input 
-                  id="siteName" 
-                  value={formData.siteName} 
-                  onChange={(e) => handleInputChange("siteName", e.target.value)} 
-                  required 
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="footerText">Footer Text</Label>
-                <Textarea 
-                  id="footerText" 
-                  value={formData.footerText} 
-                  onChange={(e) => handleInputChange("footerText", e.target.value)} 
-                  rows={2}
-                  required 
-                />
-              </div>
-            </CardContent>
-          </Card>
 
+          {/* Hero Section */}
           <Card>
             <CardHeader>
               <CardTitle>Hero Section</CardTitle>
@@ -156,7 +137,7 @@ export default function AdminSettings() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="heroTitleHighlight">Heading (Highlighted)</Label>
+                  <Label htmlFor="heroTitleHighlight">Heading (Highlighted / Gradient)</Label>
                   <Input
                     id="heroTitleHighlight"
                     value={formData.heroTitleHighlight || ""}
@@ -197,121 +178,104 @@ export default function AdminSettings() {
               </div>
 
               <p className="text-sm font-medium text-muted-foreground pt-2">Stats Strip</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="heroStat1Value">Stat 1 Value</Label>
-                  <Input
-                    id="heroStat1Value"
-                    value={formData.heroStat1Value || ""}
-                    onChange={(e) => handleInputChange("heroStat1Value", e.target.value)}
-                    placeholder="1000+"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="heroStat1Label">Stat 1 Label</Label>
-                  <Input
-                    id="heroStat1Label"
-                    value={formData.heroStat1Label || ""}
-                    onChange={(e) => handleInputChange("heroStat1Label", e.target.value)}
-                    placeholder="সন্তুষ্ট গ্রাহক"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="heroStat2Value">Stat 2 Value</Label>
-                  <Input
-                    id="heroStat2Value"
-                    value={formData.heroStat2Value || ""}
-                    onChange={(e) => handleInputChange("heroStat2Value", e.target.value)}
-                    placeholder="15+"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="heroStat2Label">Stat 2 Label</Label>
-                  <Input
-                    id="heroStat2Label"
-                    value={formData.heroStat2Label || ""}
-                    onChange={(e) => handleInputChange("heroStat2Label", e.target.value)}
-                    placeholder="প্রোডাক্ট"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="heroStat3Value">Stat 3 Value</Label>
-                  <Input
-                    id="heroStat3Value"
-                    value={formData.heroStat3Value || ""}
-                    onChange={(e) => handleInputChange("heroStat3Value", e.target.value)}
-                    placeholder="24/7"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="heroStat3Label">Stat 3 Label</Label>
-                  <Input
-                    id="heroStat3Label"
-                    value={formData.heroStat3Label || ""}
-                    onChange={(e) => handleInputChange("heroStat3Label", e.target.value)}
-                    placeholder="সাপোর্ট"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="heroStat4Value">Stat 4 Value</Label>
-                  <Input
-                    id="heroStat4Value"
-                    value={formData.heroStat4Value || ""}
-                    onChange={(e) => handleInputChange("heroStat4Value", e.target.value)}
-                    placeholder="5-30 Min"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="heroStat4Label">Stat 4 Label</Label>
-                  <Input
-                    id="heroStat4Label"
-                    value={formData.heroStat4Label || ""}
-                    onChange={(e) => handleInputChange("heroStat4Label", e.target.value)}
-                    placeholder="ডেলিভারি"
-                  />
-                </div>
+              <div className="border rounded-lg overflow-hidden">
+                <table className="w-full text-sm">
+                  <thead className="bg-muted">
+                    <tr>
+                      <th className="text-left px-4 py-2 font-medium text-muted-foreground w-10">#</th>
+                      <th className="text-left px-4 py-2 font-medium text-muted-foreground">Value</th>
+                      <th className="text-left px-4 py-2 font-medium text-muted-foreground">Label (Bangla)</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y">
+                    {heroStats.map((stat, i) => (
+                      <tr key={i}>
+                        <td className="px-4 py-3 text-muted-foreground">{i + 1}</td>
+                        <td className="px-4 py-2">
+                          <Input
+                            value={(formData[stat.valueKey] as string) || ""}
+                            onChange={(e) => handleInputChange(stat.valueKey, e.target.value)}
+                            placeholder={stat.placeholder.value}
+                            className="h-8"
+                          />
+                        </td>
+                        <td className="px-4 py-2">
+                          <Input
+                            value={(formData[stat.labelKey] as string) || ""}
+                            onChange={(e) => handleInputChange(stat.labelKey, e.target.value)}
+                            placeholder={stat.placeholder.label}
+                            className="h-8"
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </CardContent>
           </Card>
 
+          {/* Footer & Social Links */}
           <Card>
             <CardHeader>
-              <CardTitle>Contact & Social Links</CardTitle>
-              <CardDescription>Full URLs for your contact channels and social media pages.</CardDescription>
+              <CardTitle>Footer &amp; Social Links</CardTitle>
+              <CardDescription>Site name, footer text, and all contact / social channel URLs.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4 grid md:grid-cols-2 gap-4">
-              <div className="space-y-2 mt-4">
-                <Label htmlFor="whatsapp">WhatsApp Link</Label>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="siteName">Site Name</Label>
                 <Input 
-                  id="whatsapp" 
-                  value={formData.whatsapp} 
-                  onChange={(e) => handleInputChange("whatsapp", e.target.value)} 
-                  placeholder="https://wa.me/..."
+                  id="siteName" 
+                  value={formData.siteName} 
+                  onChange={(e) => handleInputChange("siteName", e.target.value)} 
                   required 
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="telegram">Telegram Link</Label>
-                <Input 
-                  id="telegram" 
-                  value={formData.telegram} 
-                  onChange={(e) => handleInputChange("telegram", e.target.value)} 
-                  placeholder="https://t.me/..."
+                <Label htmlFor="footerText">Footer Text</Label>
+                <Textarea 
+                  id="footerText" 
+                  value={formData.footerText} 
+                  onChange={(e) => handleInputChange("footerText", e.target.value)} 
+                  rows={2}
                   required 
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="facebook">Facebook Page Link</Label>
-                <Input 
-                  id="facebook" 
-                  value={formData.facebook || ""} 
-                  onChange={(e) => handleInputChange("facebook", e.target.value)} 
-                  placeholder="https://facebook.com/..."
-                />
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp">WhatsApp Link</Label>
+                  <Input 
+                    id="whatsapp" 
+                    value={formData.whatsapp} 
+                    onChange={(e) => handleInputChange("whatsapp", e.target.value)} 
+                    placeholder="https://wa.me/..."
+                    required 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="telegram">Telegram Link</Label>
+                  <Input 
+                    id="telegram" 
+                    value={formData.telegram} 
+                    onChange={(e) => handleInputChange("telegram", e.target.value)} 
+                    placeholder="https://t.me/..."
+                    required 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="facebook">Facebook Page Link</Label>
+                  <Input 
+                    id="facebook" 
+                    value={formData.facebook || ""} 
+                    onChange={(e) => handleInputChange("facebook", e.target.value)} 
+                    placeholder="https://facebook.com/..."
+                  />
+                </div>
               </div>
             </CardContent>
           </Card>
 
+          {/* Payment Methods */}
           <Card>
             <CardHeader>
               <CardTitle>Payment Methods</CardTitle>
@@ -348,6 +312,7 @@ export default function AdminSettings() {
             </CardContent>
           </Card>
 
+          {/* Theme Colors */}
           <Card>
             <CardHeader>
               <CardTitle>Theme Colors (Advanced)</CardTitle>
