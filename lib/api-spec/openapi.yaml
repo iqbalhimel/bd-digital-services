@@ -640,6 +640,8 @@ components:
           type: string
         telegram:
           type: string
+        facebook:
+          type: string
         bkashNumber:
           type: string
         nagadNumber:
@@ -654,10 +656,39 @@ components:
           type: string
         accentColor:
           type: string
+        heroBadge:
+          type: string
+        heroTitle:
+          type: string
+        heroTitleHighlight:
+          type: string
+        heroSubtitle:
+          type: string
+        heroPrimaryBtn:
+          type: string
+        heroWhatsappBtn:
+          type: string
+        heroStat1Value:
+          type: string
+        heroStat1Label:
+          type: string
+        heroStat2Value:
+          type: string
+        heroStat2Label:
+          type: string
+        heroStat3Value:
+          type: string
+        heroStat3Label:
+          type: string
+        heroStat4Value:
+          type: string
+        heroStat4Label:
+          type: string
       required:
         - siteName
         - whatsapp
         - telegram
+        - facebook
         - bkashNumber
         - nagadNumber
         - rocketNumber
@@ -665,6 +696,20 @@ components:
         - primaryColor
         - secondaryColor
         - accentColor
+        - heroBadge
+        - heroTitle
+        - heroTitleHighlight
+        - heroSubtitle
+        - heroPrimaryBtn
+        - heroWhatsappBtn
+        - heroStat1Value
+        - heroStat1Label
+        - heroStat2Value
+        - heroStat2Label
+        - heroStat3Value
+        - heroStat3Label
+        - heroStat4Value
+        - heroStat4Label
 
     Notice:
       type: object

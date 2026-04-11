@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { useGetSettings, getGetSettingsQueryKey } from "@workspace/api-client-react";
-import { MessageCircle, Send, Menu, X } from "lucide-react";
+import { MessageCircle, Send, Menu, X, Facebook } from "lucide-react";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -13,6 +13,7 @@ export function MainLayout({ children }: MainLayoutProps) {
 
   const whatsappLink = settings?.whatsapp || "https://wa.me/8801572792499";
   const telegramLink = settings?.telegram || "https://t.me/+8801572792499";
+  const facebookLink = settings?.facebook || "";
 
   const navLinks = [
     { href: "#products", label: "Products" },
@@ -119,6 +120,11 @@ export function MainLayout({ children }: MainLayoutProps) {
             <a href={telegramLink} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-white/10 transition-colors">
               <Send className="w-5 h-5 text-white" />
             </a>
+            {facebookLink && (
+              <a href={facebookLink} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-white/10 transition-colors">
+                <Facebook className="w-5 h-5 text-white" />
+              </a>
+            )}
           </div>
           <p className="text-sm">
             &copy; {new Date().getFullYear()} {settings?.siteName || "BD Digital Services"}. All rights reserved.

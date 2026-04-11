@@ -398,16 +398,16 @@ export default function Home() {
           <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl mx-auto space-y-8">
             <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-semibold mb-4 backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              Premium Digital Products Marketplace
+              {settings?.heroBadge || "Premium Digital Products Marketplace"}
             </motion.div>
 
             <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl font-extrabold tracking-tight text-white drop-shadow-2xl">
-              Your Trusted Source For <br />
-              <span className="gradient-text">Digital Services</span>
+              {settings?.heroTitle || "Your Trusted Source For"} <br />
+              <span className="gradient-text">{settings?.heroTitleHighlight || "Digital Services"}</span>
             </motion.h1>
 
             <motion.p variants={fadeIn} className="text-xl md:text-2xl text-white/80 font-bn leading-relaxed max-w-2xl mx-auto">
-              বাংলাদেশের সবচেয়ে বিশ্বস্ত ডিজিটাল প্রোডাক্ট, একাউন্ট এবং কার্ড এর মার্কেটপ্লেস। দ্রুত ডেলিভারি এবং ২৪/৭ সাপোর্ট।
+              {settings?.heroSubtitle || "বাংলাদেশের সবচেয়ে বিশ্বস্ত ডিজিটাল প্রোডাক্ট, একাউন্ট এবং কার্ড এর মার্কেটপ্লেস। দ্রুত ডেলিভারি এবং ২৪/৭ সাপোর্ট।"}
             </motion.p>
 
             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -416,14 +416,14 @@ export default function Home() {
                 className="text-lg px-8 py-6 rounded-full bg-white text-violet-900 hover:bg-white/90 shadow-2xl hover:scale-105 transition-transform font-bold"
                 onClick={() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })}
               >
-                <ShoppingCart className="mr-2 h-5 w-5" /> Browse Products
+                <ShoppingCart className="mr-2 h-5 w-5" /> {settings?.heroPrimaryBtn || "Browse Products"}
               </Button>
               <Button
                 size="lg"
                 className="text-lg px-8 py-6 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white shadow-2xl hover:scale-105 transition-transform font-bold border-0"
                 onClick={() => handleWhatsAppOrder()}
               >
-                <MessageCircle className="mr-2 h-5 w-5" /> Order via WhatsApp
+                <MessageCircle className="mr-2 h-5 w-5" /> {settings?.heroWhatsappBtn || "Order via WhatsApp"}
               </Button>
             </motion.div>
 
@@ -433,16 +433,15 @@ export default function Home() {
               className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-white/15 mt-4"
             >
               {[
-                { icon: Users, value: "1000+", labelEn: "Happy Customers", labelBn: "সন্তুষ্ট গ্রাহক" },
-                { icon: Package, value: "15+", labelEn: "Products", labelBn: "প্রোডাক্ট" },
-                { icon: HeadphonesIcon, value: "24/7", labelEn: "Support", labelBn: "সাপোর্ট" },
-                { icon: Truck, value: "5-30 Min", labelEn: "Delivery", labelBn: "ডেলিভারি" },
+                { icon: Users, value: settings?.heroStat1Value || "1000+", label: settings?.heroStat1Label || "সন্তুষ্ট গ্রাহক" },
+                { icon: Package, value: settings?.heroStat2Value || "15+", label: settings?.heroStat2Label || "প্রোডাক্ট" },
+                { icon: HeadphonesIcon, value: settings?.heroStat3Value || "24/7", label: settings?.heroStat3Label || "সাপোর্ট" },
+                { icon: Truck, value: settings?.heroStat4Value || "5-30 Min", label: settings?.heroStat4Label || "ডেলিভারি" },
               ].map(stat => (
-                <div key={stat.labelEn} className="flex flex-col items-center gap-1 bg-white/8 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                <div key={stat.label} className="flex flex-col items-center gap-1 bg-white/8 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
                   <stat.icon className="w-5 h-5 text-cyan-300 mb-1" />
                   <div className="text-2xl font-extrabold text-white">{stat.value}</div>
-                  <div className="text-xs text-white/60 font-bn">{stat.labelBn}</div>
-                  <div className="text-xs text-white/40">{stat.labelEn}</div>
+                  <div className="text-xs text-white/60 font-bn">{stat.label}</div>
                 </div>
               ))}
             </motion.div>

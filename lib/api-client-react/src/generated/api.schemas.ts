@@ -133,6 +133,7 @@ export interface SiteSettings {
   siteName: string;
   whatsapp: string;
   telegram: string;
+  facebook: string;
   bkashNumber: string;
   nagadNumber: string;
   rocketNumber: string;
@@ -140,6 +141,20 @@ export interface SiteSettings {
   primaryColor: string;
   secondaryColor: string;
   accentColor: string;
+  heroBadge: string;
+  heroTitle: string;
+  heroTitleHighlight: string;
+  heroSubtitle: string;
+  heroPrimaryBtn: string;
+  heroWhatsappBtn: string;
+  heroStat1Value: string;
+  heroStat1Label: string;
+  heroStat2Value: string;
+  heroStat2Label: string;
+  heroStat3Value: string;
+  heroStat3Label: string;
+  heroStat4Value: string;
+  heroStat4Label: string;
 }
 
 export interface Notice {
