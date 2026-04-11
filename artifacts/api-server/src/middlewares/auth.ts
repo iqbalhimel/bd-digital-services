@@ -26,8 +26,8 @@ function verifyToken(token: string): boolean {
     if (expected !== hmac) return false;
     const ts = Number(timestamp);
     const age = Date.now() - ts;
-    // Token expires after 30 days
-    if (age > 30 * 24 * 60 * 60 * 1000) return false;
+    // Token expires after 7 days
+    if (age > 7 * 24 * 60 * 60 * 1000) return false;
     return true;
   } catch {
     return false;

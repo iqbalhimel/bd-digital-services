@@ -1,6 +1,7 @@
 import { Router, type IRouter } from "express";
 import { AdminLoginBody } from "@workspace/api-zod";
 import { createHmac } from "crypto";
+import { loginLimiter } from "../middlewares/rateLimits";
 
 const router: IRouter = Router();
 
@@ -21,7 +22,7 @@ function generateToken(username: string): string {
   return `${Buffer.from(username).toString("base64")}.${timestamp}.${hmac}`;
 }
 
-router.post("/admin/login", async (req, res): Promise<void> => {
+router.post("/admin/login", loginLimiter, async (req, res): Promise<void> => {
   const parsed = AdminLoginBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: parsed.error.message });

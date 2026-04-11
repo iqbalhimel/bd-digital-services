@@ -1,19 +1,65 @@
-import express, { type Express } from "express";
+import express, { type Express, type Request, type Response, type NextFunction } from "express";
 import cors from "cors";
+import helmet from "helmet";
+import hpp from "hpp";
 import pinoHttp from "pino-http";
 import path from "path";
 import { fileURLToPath } from "url";
 import router from "./routes";
 import { logger } from "./lib/logger";
+import { globalLimiter } from "./middlewares/rateLimits";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isProduction = process.env.NODE_ENV === "production";
 
+const allowedOrigins = isProduction
+  ? [
+      "https://bddigitalservices.com",
+      "https://www.bddigitalservices.com",
+      process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "",
+    ].filter(Boolean)
+  : [
+      /^https?:\/\/localhost(:\d+)?$/,
+      /^https?:\/\/127\.0\.0\.1(:\d+)?$/,
+      process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "",
+    ].filter(Boolean);
+
+const corsOptions: cors.CorsOptions = {
+  origin(origin, callback) {
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
+    const allowed = allowedOrigins.some((o) =>
+      typeof o === "string" ? o === origin : o.test(origin),
+    );
+    if (allowed) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS: origin not allowed"));
+    }
+  },
+  credentials: true,
+};
+
 const app: Express = express();
+
+// Trust the first proxy hop (Replit / Cloudflare / Hostinger reverse proxy)
+// so that rate limiting uses the real client IP from X-Forwarded-For
+app.set("trust proxy", 1);
 
 app.use(
   pinoHttp({
     logger,
+    redact: {
+      paths: [
+        "req.headers.authorization",
+        "req.body.password",
+        "req.body.token",
+        "req.body.secret",
+      ],
+      censor: "[REDACTED]",
+    },
     serializers: {
       req(req) {
         return {
@@ -30,21 +76,56 @@ app.use(
     },
   }),
 );
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// API routes
+app.use(
+  helmet({
+    contentSecurityPolicy: isProduction
+      ? {
+          directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            imgSrc: ["'self'", "data:", "https:"],
+            connectSrc: ["'self'"],
+            fontSrc: ["'self'", "https:", "data:"],
+            objectSrc: ["'none'"],
+            frameSrc: ["'none'"],
+            upgradeInsecureRequests: [],
+          },
+        }
+      : false,
+    hsts: isProduction
+      ? { maxAge: 31536000, includeSubDomains: true, preload: true }
+      : false,
+    frameguard: { action: "deny" },
+    noSniff: true,
+    xssFilter: true,
+  }),
+);
+
+app.use(cors(corsOptions));
+
+app.use(express.json({ limit: "50kb" }));
+app.use(express.urlencoded({ extended: true, limit: "50kb" }));
+
+app.use(hpp());
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (req.url && req.url.length > 2000) {
+    res.status(414).json({ error: "URI Too Long" });
+    return;
+  }
+  next();
+});
+
+app.use(globalLimiter);
+
 app.use("/api", router);
 
-// In production, serve the React frontend build
 if (isProduction) {
-  // The frontend is built to artifacts/bd-digital-services/dist/public/
-  // when running from the api-server dist/ folder, relative path is:
   const frontendBuildPath = path.resolve(__dirname, "../../bd-digital-services/dist/public");
   app.use(express.static(frontendBuildPath));
 
-  // SPA fallback — all non-API routes return index.html
   app.get("*", (_req, res) => {
     res.sendFile(path.join(frontendBuildPath, "index.html"));
   });
