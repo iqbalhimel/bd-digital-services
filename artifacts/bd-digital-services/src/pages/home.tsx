@@ -19,10 +19,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -77,35 +75,6 @@ const FAQS = [
     answerBn: "পেজের উপরে-নিচে ও ফ্লোটিং বাটনে হোয়াটসঅ্যাপ ও টেলিগ্রাম লিংক আছে। যেকোনো সময় ২৪/৭ যোগাযোগ করতে পারবেন।"
   }
 ];
-
-const CARD_GRADIENTS = [
-  "from-violet-500 to-purple-700",
-  "from-blue-500 to-cyan-600",
-  "from-cyan-500 to-teal-600",
-  "from-amber-500 to-orange-600",
-  "from-pink-500 to-rose-600",
-  "from-green-500 to-emerald-600",
-  "from-indigo-500 to-violet-600",
-  "from-rose-500 to-pink-600",
-];
-
-function getCategoryGradient(
-  categoryNameEn: string | null | undefined,
-  categoryId: number | null | undefined,
-  productId: number
-): string {
-  const name = (categoryNameEn || "").toLowerCase();
-  if (name.includes("ai") || name.includes("artificial")) return "from-violet-500 to-purple-700";
-  if (name.includes("developer") || name.includes("dev")) return "from-blue-500 to-cyan-600";
-  if (name.includes("cloud") || name.includes("hosting")) return "from-cyan-500 to-teal-600";
-  if (name.includes("finance") || name.includes("card") || name.includes("bank")) return "from-amber-500 to-orange-600";
-  if (name.includes("entertainment") || name.includes("streaming") || name.includes("video")) return "from-pink-500 to-rose-600";
-  if (name.includes("social") || name.includes("media")) return "from-indigo-500 to-violet-600";
-  if (name.includes("gaming") || name.includes("game")) return "from-rose-500 to-pink-600";
-  if (name.includes("tool") || name.includes("software")) return "from-green-500 to-emerald-600";
-  const idx = (categoryId != null ? categoryId : productId) % CARD_GRADIENTS.length;
-  return CARD_GRADIENTS[idx];
-}
 
 export default function Home() {
   const { toast } = useToast();
@@ -444,7 +413,7 @@ export default function Home() {
                 { icon: HeadphonesIcon, value: settings?.heroStat3Value || "24/7",    label: settings?.heroStat3Label || "সাপোর্ট" },
                 { icon: Truck,          value: settings?.heroStat4Value || "5-30 Min",label: settings?.heroStat4Label || "ডেলিভারি" },
               ].map(stat => (
-                <div key={stat.label} className="flex flex-col items-center gap-1.5 bg-card border border-border rounded-xl p-4 hover:border-primary/25 transition-colors group">
+                <div key={stat.label} className="flex flex-col items-center gap-1.5 bg-card border border-border/60 rounded-xl p-4 hover:border-primary/25 transition-colors group">
                   <stat.icon className="w-4 h-4 text-primary mb-0.5 group-hover:scale-110 transition-transform" />
                   <div className="text-xl font-bold text-foreground tracking-tight">{stat.value}</div>
                   <div className="text-[11px] text-muted-foreground font-bn leading-snug text-center">{stat.label}</div>
@@ -458,7 +427,7 @@ export default function Home() {
 
       {/* Featured Products */}
       {featuredProducts && featuredProducts.length > 0 && (
-        <section className="py-20 bg-muted/20 border-y border-border">
+        <section className="py-24 bg-muted/20 border-y border-border">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">

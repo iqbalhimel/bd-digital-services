@@ -50,7 +50,7 @@ export function MainLayout({ children }: MainLayoutProps) {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-[#22C55E] text-white px-4 py-2 rounded-full font-medium hover:bg-[#16A34A] transition-colors shadow-lg"
+              className="flex items-center gap-2 bg-[#22C55E] text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-[#16A34A] transition-all hover:-translate-y-px shadow-md shadow-green-900/20"
             >
               <MessageCircle className="w-4 h-4" />
               <span className="hidden sm:inline">WhatsApp</span>
