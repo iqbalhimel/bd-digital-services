@@ -853,7 +853,7 @@ function ProductCard({ product, onOrder, onFormOrder }: {
       <div className="flex-1 px-5 py-3">
         <div className="space-y-1.5">
           {product.descriptionEn && (
-            <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{product.descriptionEn}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{product.descriptionEn}</p>
           )}
           {product.descriptionBn && (
             <p className="text-sm text-muted-foreground font-bn leading-relaxed line-clamp-2">{product.descriptionBn}</p>
