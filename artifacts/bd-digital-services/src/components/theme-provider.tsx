@@ -9,11 +9,11 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const STORAGE_KEY = "bd-theme";
+export const THEME_STORAGE_KEY = "bd-theme";
 
-function getInitialTheme(): Theme {
+export function getInitialTheme(): Theme {
   if (typeof window === "undefined") return "dark";
-  const stored = localStorage.getItem(STORAGE_KEY);
+  const stored = localStorage.getItem(THEME_STORAGE_KEY);
   if (stored === "light" || stored === "dark") return stored;
   if (window.matchMedia("(prefers-color-scheme: light)").matches) return "light";
   return "dark";
@@ -36,7 +36,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.setAttribute("data-transitioning", "");
     setTheme(prev => {
       const next = prev === "dark" ? "light" : "dark";
-      localStorage.setItem(STORAGE_KEY, next);
+      localStorage.setItem(THEME_STORAGE_KEY, next);
       return next;
     });
     setTimeout(() => root.removeAttribute("data-transitioning"), 250);
