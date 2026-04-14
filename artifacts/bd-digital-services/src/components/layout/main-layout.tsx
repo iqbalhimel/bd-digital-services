@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { useGetSettings, getGetSettingsQueryKey } from "@workspace/api-client-react";
-import { MessageCircle, Send, Menu, X, Facebook } from "lucide-react";
+import { MessageCircle, Send, Menu, X, Facebook, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/components/theme-provider";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -10,6 +11,7 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   const { data: settings } = useGetSettings({ query: { queryKey: getGetSettingsQueryKey() } });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const whatsappLink = settings?.whatsapp || "https://wa.me/8801572792499";
   const telegramLink = settings?.telegram || "https://t.me/+8801572792499";
@@ -46,6 +48,13 @@ export function MainLayout({ children }: MainLayoutProps) {
           </nav>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg hover:bg-muted/60 text-muted-foreground hover:text-foreground transition-all"
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {theme === "dark" ? <Sun className="w-[18px] h-[18px]" /> : <Moon className="w-[18px] h-[18px]" />}
+            </button>
             <a
               href={whatsappLink}
               target="_blank"
@@ -55,7 +64,6 @@ export function MainLayout({ children }: MainLayoutProps) {
               <MessageCircle className="w-4 h-4" />
               <span className="hidden sm:inline">WhatsApp</span>
             </a>
-            {/* Mobile hamburger */}
             <button
               className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
               onClick={() => setMobileMenuOpen(o => !o)}

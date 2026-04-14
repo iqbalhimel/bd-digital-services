@@ -60,6 +60,16 @@ A bilingual (Bangla + English) digital product marketplace for bddigitalservices
 - WhatsApp/Telegram: +8801572792499
 - bKash/Nagad/Rocket: 01687476714
 
+### Theme System
+
+- **Dark/Light toggle**: Sun/Moon icon in the header navbar
+- **Default**: Dark mode (falls back to system preference for first visit)
+- **Persistence**: localStorage key `bd-theme` ("dark" | "light")
+- **CSS architecture**: `:root` = light tokens, `.dark` = dark tokens; Tailwind `dark:` variant via `@custom-variant dark`
+- **Theme Provider**: `src/components/theme-provider.tsx` — React context + `useTheme()` hook
+- **Flash prevention**: `main.tsx` applies `.dark` class synchronously before React render
+- **Transition**: `data-transitioning` attribute on `<html>` enables 200ms CSS transitions during toggle
+
 ### Replit Setup
 
 - **API Server workflow**: `PORT=8080 pnpm --filter @workspace/api-server run dev` (port 8080)

@@ -362,10 +362,7 @@ export default function Home() {
           <div className="absolute bottom-0 right-[-100px] w-[500px] h-[400px] rounded-full bg-primary/[0.05] blur-[100px]" />
         </div>
         {/* Dot grid texture */}
-        <div
-          className="absolute inset-0 opacity-[0.022] pointer-events-none"
-          style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "36px 36px" }}
-        />
+        <div className="absolute inset-0 opacity-[0.022] pointer-events-none dot-grid" />
 
         <div className="container mx-auto px-4 text-center relative z-10">
           <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl mx-auto space-y-5 md:space-y-7">
