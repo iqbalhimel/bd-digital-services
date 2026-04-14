@@ -377,7 +377,7 @@ export default function Home() {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeIn} className="text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-foreground leading-[1.1]">
+            <motion.h1 variants={fadeIn} className="text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-foreground leading-[1.1] max-w-3xl mx-auto">
               {settings?.heroTitle || "Your Trusted Source For"}{" "}
               <span className="gradient-text">{settings?.heroTitleHighlight || "Digital Services"}</span>
             </motion.h1>
@@ -492,8 +492,8 @@ export default function Home() {
               <TabsList className="h-auto p-1 bg-card border border-border/60 rounded-xl inline-flex gap-0.5 shadow-sm">
                 <TabsTrigger
                   value="all"
-                  className="rounded-lg px-5 py-2 text-sm font-medium text-muted-foreground transition-all
-                    data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-primary/25 data-[state=active]:shadow-none
+                  className="rounded-lg px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all
+                    data-[state=active]:bg-primary/20 data-[state=active]:text-primary data-[state=active]:font-semibold data-[state=active]:border data-[state=active]:border-primary/30 data-[state=active]:shadow-none
                     hover:text-foreground hover:bg-muted/50"
                 >
                   All
@@ -502,8 +502,8 @@ export default function Home() {
                   <TabsTrigger
                     key={cat.id}
                     value={cat.id.toString()}
-                    className="rounded-lg px-5 py-2 text-sm font-medium text-muted-foreground transition-all flex items-center gap-1.5
-                      data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-primary/25 data-[state=active]:shadow-none
+                    className="rounded-lg px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all flex items-center gap-1.5
+                      data-[state=active]:bg-primary/20 data-[state=active]:text-primary data-[state=active]:font-semibold data-[state=active]:border data-[state=active]:border-primary/30 data-[state=active]:shadow-none
                       hover:text-foreground hover:bg-muted/50"
                   >
                     <span className="text-base leading-none">{cat.icon}</span>
