@@ -60,6 +60,13 @@ A bilingual (Bangla + English) digital product marketplace for bddigitalservices
 - WhatsApp/Telegram: +8801572792499
 - bKash/Nagad/Rocket: 01687476714
 
+### Replit Setup
+
+- **API Server workflow**: `PORT=8080 pnpm --filter @workspace/api-server run dev` (port 8080)
+- **Frontend workflow**: `PORT=18910 BASE_PATH=/ pnpm --filter @workspace/bd-digital-services run dev` (port 18910)
+- **Database**: Replit PostgreSQL provisioned; schema applied via `pnpm --filter @workspace/db run push`
+- **Artifacts**: `artifacts/api-server/.replit-artifact/artifact.toml` and `artifacts/bd-digital-services/.replit-artifact/artifact.toml`
+
 ### Deployment
 
 See `DEPLOYMENT.md` for Hostinger Node.js hosting setup.
