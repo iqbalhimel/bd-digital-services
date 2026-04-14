@@ -808,56 +808,77 @@ function ProductCard({ product, onOrder, onFormOrder }: {
   onOrder: () => void;
   onFormOrder: (id: number) => void;
 }) {
-  const gradient = getCategoryGradient(product.categoryNameEn, product.categoryId, product.id);
   const priceNum = parseFloat(product.priceBdt);
   const priceDisplay = priceNum === 0 ? "Contact for Price" : `৳${product.priceBdt}`;
   const priceIsFree = priceNum === 0;
 
   return (
-    <Card className="flex flex-col h-full overflow-hidden md:hover:shadow-xl md:hover:shadow-primary/10 md:hover:-translate-y-1 transition-all duration-300 border-border/50 group bg-card">
-      {/* Colorful gradient header */}
-      <div className={`bg-gradient-to-br ${gradient} p-5 relative`}>
+    <div className="group relative flex flex-col h-full bg-card border border-border/70 rounded-xl overflow-hidden hover:border-primary/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/[0.09] transition-all duration-300">
+
+      {/* Top accent line — appears on hover */}
+      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-primary/0 via-primary to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+      {/* Card Header */}
+      <div className="p-5 pb-4 relative">
         {product.badge && (
-          <Badge className="absolute top-3 right-3 z-10 bg-white/20 text-white border-white/30 font-bold uppercase tracking-wider text-[10px] px-2 py-0.5 backdrop-blur-sm shadow-sm">
+          <span className="absolute top-4 right-4 inline-flex items-center px-2 py-0.5 rounded-md bg-primary/15 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
             {product.badge}
-          </Badge>
+          </span>
         )}
-        <div className="text-white">
-          <CardTitle className="text-lg font-bold leading-tight text-white group-hover:text-white/90 transition-colors">
-            {product.nameEn}
-          </CardTitle>
-          <p className="text-sm font-bn text-white/75 mt-1">{product.nameBn}</p>
-        </div>
-        {/* Price on gradient */}
-        <div className="mt-3 flex items-baseline gap-2">
-          <span className={`text-2xl font-extrabold text-white ${priceIsFree ? "text-lg" : ""}`}>
+
+        {product.categoryNameEn && (
+          <p className="text-[10px] font-semibold text-primary/60 uppercase tracking-widest mb-2.5">
+            {product.categoryNameEn}
+          </p>
+        )}
+
+        <h3 className={`text-sm font-bold text-foreground leading-snug ${product.badge ? "pr-16" : ""}`}>
+          {product.nameEn}
+        </h3>
+        {product.nameBn && (
+          <p className="text-xs text-muted-foreground font-bn mt-0.5">{product.nameBn}</p>
+        )}
+
+        <div className="mt-4 flex items-baseline gap-2">
+          <span className={`font-bold tracking-tight ${priceIsFree ? "text-sm text-muted-foreground" : "text-2xl text-foreground"}`}>
             {priceDisplay}
           </span>
           {!priceIsFree && parseFloat(product.priceUsd) > 0 && (
-            <span className="text-sm text-white/60 line-through">${product.priceUsd}</span>
+            <span className="text-xs text-muted-foreground/60 line-through">${product.priceUsd}</span>
           )}
         </div>
       </div>
 
-      <CardContent className="flex-1 pt-5">
-        <div className="space-y-2">
+      <div className="mx-5 h-px bg-border/50" />
+
+      {/* Description */}
+      <div className="flex-1 px-5 py-4">
+        <div className="space-y-1.5">
           {product.descriptionEn && (
-            <p className="text-sm text-muted-foreground leading-relaxed">{product.descriptionEn}</p>
+            <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{product.descriptionEn}</p>
           )}
           {product.descriptionBn && (
-            <p className="text-sm text-muted-foreground font-bn leading-relaxed">{product.descriptionBn}</p>
+            <p className="text-xs text-muted-foreground font-bn leading-relaxed">{product.descriptionBn}</p>
           )}
         </div>
-      </CardContent>
+      </div>
 
-      <CardFooter className="pt-0 flex flex-col gap-2 p-5 bg-card border-t border-border/50">
-        <Button className="w-full bg-[#22C55E] hover:bg-[#16A34A] text-white shadow-sm" onClick={onOrder}>
-          <MessageCircle className="w-4 h-4 mr-2" /> Order via WhatsApp
+      {/* Action buttons */}
+      <div className="px-5 pb-5 pt-1 flex flex-col gap-2">
+        <Button
+          className="w-full bg-primary hover:bg-[#6D4DF4] text-white text-sm font-semibold shadow-sm shadow-primary/15 hover:shadow-primary/25 transition-all"
+          onClick={() => onFormOrder(product.id)}
+        >
+          Place Order
         </Button>
-        <Button variant="outline" className="w-full border-primary/20 hover:bg-primary/5 hover:text-primary" onClick={() => onFormOrder(product.id)}>
-          Order via Form
+        <Button
+          variant="ghost"
+          className="w-full text-sm font-medium text-[#22C55E] hover:text-[#22C55E] hover:bg-[#22C55E]/8 border border-[#22C55E]/20 hover:border-[#22C55E]/35 transition-all"
+          onClick={onOrder}
+        >
+          <MessageCircle className="w-3.5 h-3.5 mr-1.5" /> WhatsApp
         </Button>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }
