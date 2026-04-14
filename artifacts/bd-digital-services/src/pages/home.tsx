@@ -355,7 +355,7 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-32 overflow-hidden bg-background">
+      <section className="relative pt-16 pb-20 md:pt-24 md:pb-32 overflow-hidden bg-background">
         {/* Ambient glow — subtle, no blobs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full bg-primary/[0.07] blur-[130px]" />
@@ -368,7 +368,7 @@ export default function Home() {
         />
 
         <div className="container mx-auto px-4 text-center relative z-10">
-          <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl mx-auto space-y-7">
+          <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl mx-auto space-y-5 md:space-y-7">
 
             {/* Eyebrow badge */}
             <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary">
@@ -377,7 +377,7 @@ export default function Home() {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeIn} className="text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-foreground leading-[1.1] max-w-3xl mx-auto">
+            <motion.h1 variants={fadeIn} className="text-4xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-foreground leading-[1.1] max-w-3xl mx-auto">
               {settings?.heroTitle || "Your Trusted Source For"}{" "}
               <span className="gradient-text">{settings?.heroTitleHighlight || "Digital Services"}</span>
             </motion.h1>
@@ -413,7 +413,7 @@ export default function Home() {
                 { icon: HeadphonesIcon, value: settings?.heroStat3Value || "24/7",    label: settings?.heroStat3Label || "সাপোর্ট" },
                 { icon: Truck,          value: settings?.heroStat4Value || "5-30 Min",label: settings?.heroStat4Label || "ডেলিভারি" },
               ].map(stat => (
-                <div key={stat.label} className="flex flex-col items-center gap-1.5 bg-card border border-border/60 rounded-xl p-4 hover:border-primary/25 transition-colors group">
+                <div key={stat.label} className="flex flex-col items-center gap-1.5 bg-card border border-border/60 rounded-xl p-3 md:p-4 hover:border-primary/25 transition-colors group">
                   <stat.icon className="w-4 h-4 text-primary mb-0.5 group-hover:scale-110 transition-transform" />
                   <div className="text-xl font-bold text-foreground tracking-tight">{stat.value}</div>
                   <div className="text-xs text-muted-foreground font-bn leading-snug text-center">{stat.label}</div>
@@ -427,9 +427,9 @@ export default function Home() {
 
       {/* Featured Products */}
       {featuredProducts && featuredProducts.length > 0 && (
-        <section className="py-24 bg-muted/20 border-y border-border">
+        <section className="py-16 md:py-24 bg-muted/20 border-y border-border">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8 md:mb-12">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">
                 <Star className="w-3 h-3" /> Popular Choices
               </div>
@@ -454,9 +454,9 @@ export default function Home() {
       )}
 
       {/* Product Catalog */}
-      <section id="products" className="py-24 relative">
+      <section id="products" className="py-16 md:py-24 relative">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 md:mb-12">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">
               <Package className="w-3 h-3" /> Catalog
             </div>
@@ -465,7 +465,7 @@ export default function Home() {
           </div>
 
           {/* Search Bar */}
-          <div className="max-w-lg mx-auto mb-10 relative">
+          <div className="max-w-lg mx-auto mb-8 md:mb-10 relative">
             <div className="relative flex items-center bg-card border border-border/60 rounded-xl transition-all duration-200 focus-within:border-primary/35 focus-within:shadow-[0_0_0_3px_rgba(124,92,255,0.07)]">
               <Search className="absolute left-4 w-4 h-4 text-muted-foreground/50 pointer-events-none shrink-0" />
               <Input
@@ -488,11 +488,11 @@ export default function Home() {
           </div>
 
           <Tabs defaultValue="all" value={activeCategory} onValueChange={v => { setActiveCategory(v); setSearchQuery(""); }} className="w-full">
-            <div className="flex justify-center mb-10 overflow-x-auto pb-1 scrollbar-hide">
+            <div className="flex justify-center mb-8 md:mb-10 overflow-x-auto pb-1 scrollbar-hide">
               <TabsList className="h-auto p-1 bg-card border border-border/60 rounded-xl inline-flex gap-0.5 shadow-sm">
                 <TabsTrigger
                   value="all"
-                  className="rounded-lg px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all
+                  className="rounded-lg px-3.5 md:px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all
                     data-[state=active]:bg-primary/20 data-[state=active]:text-primary data-[state=active]:font-semibold data-[state=active]:border data-[state=active]:border-primary/30 data-[state=active]:shadow-none
                     hover:text-foreground hover:bg-muted/50"
                 >
@@ -502,7 +502,7 @@ export default function Home() {
                   <TabsTrigger
                     key={cat.id}
                     value={cat.id.toString()}
-                    className="rounded-lg px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all flex items-center gap-1.5
+                    className="rounded-lg px-3.5 md:px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all flex items-center gap-1.5
                       data-[state=active]:bg-primary/20 data-[state=active]:text-primary data-[state=active]:font-semibold data-[state=active]:border data-[state=active]:border-primary/30 data-[state=active]:shadow-none
                       hover:text-foreground hover:bg-muted/50"
                   >
@@ -546,12 +546,12 @@ export default function Home() {
       </section>
 
       {/* How to Order */}
-      <section id="how-to-order" className="py-24 bg-muted/20 border-y border-border relative overflow-hidden">
+      <section id="how-to-order" className="py-16 md:py-24 bg-muted/20 border-y border-border relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-primary/[0.04] blur-[80px]" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-14">
+          <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">
               <Zap className="w-3 h-3" /> Simple Steps
             </div>
@@ -559,28 +559,28 @@ export default function Home() {
             <p className="text-muted-foreground font-bn max-w-2xl mx-auto text-base">খুব সহজেই অর্ডার করুন মাত্র ৩টি ধাপে</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div className="glass-card p-8 rounded-2xl text-center hover:-translate-y-1 transition-transform duration-300 relative group overflow-hidden">
+            <div className="glass-card p-6 md:p-8 rounded-2xl text-center hover:-translate-y-1 transition-transform duration-300 relative group overflow-hidden">
               <div className="absolute top-2 right-3 text-7xl font-black text-foreground/[0.03] select-none group-hover:text-primary/[0.06] transition-colors leading-none">1</div>
-              <div className="w-14 h-14 bg-primary/15 text-primary rounded-xl flex items-center justify-center mx-auto mb-6 rotate-2 group-hover:rotate-4 transition-transform">
-                <Package className="w-7 h-7" />
+              <div className="w-12 h-12 md:w-14 md:h-14 bg-primary/15 text-primary rounded-xl flex items-center justify-center mx-auto mb-4 md:mb-6 rotate-2 group-hover:rotate-4 transition-transform">
+                <Package className="w-6 h-6 md:w-7 md:h-7" />
               </div>
               <h3 className="text-lg font-bold mb-2 text-foreground">Choose Product</h3>
               <p className="text-muted-foreground font-bn text-sm leading-relaxed">পছন্দের সার্ভিসটি সিলেক্ট করুন এবং প্রাইস চেক করুন।</p>
             </div>
 
-            <div className="glass-card p-8 rounded-2xl text-center hover:-translate-y-1 transition-transform duration-300 relative group overflow-hidden">
+            <div className="glass-card p-6 md:p-8 rounded-2xl text-center hover:-translate-y-1 transition-transform duration-300 relative group overflow-hidden">
               <div className="absolute top-2 right-3 text-7xl font-black text-foreground/[0.03] select-none group-hover:text-primary/[0.06] transition-colors leading-none">2</div>
-              <div className="w-14 h-14 bg-primary/15 text-primary rounded-xl flex items-center justify-center mx-auto mb-6 -rotate-2 group-hover:-rotate-4 transition-transform">
-                <CreditCard className="w-7 h-7" />
+              <div className="w-12 h-12 md:w-14 md:h-14 bg-primary/15 text-primary rounded-xl flex items-center justify-center mx-auto mb-4 md:mb-6 -rotate-2 group-hover:-rotate-4 transition-transform">
+                <CreditCard className="w-6 h-6 md:w-7 md:h-7" />
               </div>
               <h3 className="text-lg font-bold mb-2 text-foreground">Send Payment</h3>
               <p className="text-muted-foreground font-bn text-sm leading-relaxed">বিকাশ, নগদ বা রকেটে পেমেন্ট করে নিচের ফর্মটি ফিলাপ করুন।</p>
             </div>
 
-            <div className="glass-card p-8 rounded-2xl text-center hover:-translate-y-1 transition-transform duration-300 relative group overflow-hidden">
+            <div className="glass-card p-6 md:p-8 rounded-2xl text-center hover:-translate-y-1 transition-transform duration-300 relative group overflow-hidden">
               <div className="absolute top-2 right-3 text-7xl font-black text-foreground/[0.03] select-none group-hover:text-primary/[0.06] transition-colors leading-none">3</div>
-              <div className="w-14 h-14 bg-[#22C55E]/15 text-[#22C55E] rounded-xl flex items-center justify-center mx-auto mb-6 rotate-2 group-hover:rotate-4 transition-transform">
-                <CheckCircle2 className="w-7 h-7" />
+              <div className="w-12 h-12 md:w-14 md:h-14 bg-[#22C55E]/15 text-[#22C55E] rounded-xl flex items-center justify-center mx-auto mb-4 md:mb-6 rotate-2 group-hover:rotate-4 transition-transform">
+                <CheckCircle2 className="w-6 h-6 md:w-7 md:h-7" />
               </div>
               <h3 className="text-lg font-bold mb-2 text-foreground">Receive Account</h3>
               <p className="text-muted-foreground font-bn text-sm leading-relaxed">৫-৩০ মিনিটের মধ্যে হোয়াটসঅ্যাপে একাউন্ট বুঝে নিন।</p>
@@ -590,16 +590,16 @@ export default function Home() {
       </section>
 
       {/* Order Form & Payment Section */}
-      <section id="order-form" className="py-24 relative">
+      <section id="order-form" className="py-16 md:py-24 relative">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-14">
+          <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">
               <ShoppingCart className="w-3 h-3" /> Place Order
             </div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-foreground">Order &amp; Payment</h2>
             <p className="text-muted-foreground font-bn max-w-2xl mx-auto">পেমেন্ট করুন এবং ফর্ম পূরণ করুন অথবা সরাসরি হোয়াটসঅ্যাপে মেসেজ দিন</p>
           </div>
-          <div className="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-5 gap-8 md:gap-12 max-w-6xl mx-auto">
 
             {/* Payment Info */}
             <div className="lg:col-span-2 space-y-6">
@@ -683,8 +683,8 @@ export default function Home() {
               <div className="bg-card border border-border/60 rounded-2xl overflow-hidden shadow-xl shadow-black/20">
                 {/* Form header accent */}
                 <div className="h-[3px] bg-gradient-to-r from-primary/0 via-primary to-primary/0" />
-                <div className="p-8">
-                  <div className="mb-7">
+                <div className="p-5 md:p-8">
+                  <div className="mb-5 md:mb-7">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3 border border-primary/20 uppercase tracking-widest">
                       <ShoppingCart className="w-3 h-3" /> Order Form
                     </div>
@@ -763,9 +763,9 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-24 bg-muted/20 border-t border-border">
+      <section id="faq" className="py-16 md:py-24 bg-muted/20 border-t border-border">
         <div className="container mx-auto px-4 max-w-3xl">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 md:mb-12">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">
               <CheckCircle2 className="w-3 h-3" /> FAQ
             </div>
@@ -778,7 +778,7 @@ export default function Home() {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-card border border-border/60 rounded-xl px-6 hover:border-border transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-card"
+                className="bg-card border border-border/60 rounded-xl px-4 md:px-6 hover:border-border transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-card"
               >
                 <AccordionTrigger className="text-left font-semibold text-base hover:text-foreground text-foreground/90 transition-colors py-4 hover:no-underline gap-4 [&>svg]:text-primary/50 [&>svg]:flex-shrink-0">
                   <div>
@@ -817,7 +817,7 @@ function ProductCard({ product, onOrder, onFormOrder }: {
       <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-primary/0 via-primary to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       {/* Card Header */}
-      <div className="p-5 pb-4 relative">
+      <div className="p-4 pb-3 md:p-5 md:pb-4 relative">
         {product.badge && (
           <span className="absolute top-4 right-4 inline-flex items-center px-2 py-0.5 rounded-md bg-primary/15 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
             {product.badge}
@@ -847,10 +847,10 @@ function ProductCard({ product, onOrder, onFormOrder }: {
         </div>
       </div>
 
-      <div className="mx-5 h-px bg-border/50" />
+      <div className="mx-4 md:mx-5 h-px bg-border/50" />
 
       {/* Description */}
-      <div className="flex-1 px-5 py-3">
+      <div className="flex-1 px-4 py-2.5 md:px-5 md:py-3">
         <div className="space-y-1.5">
           {product.descriptionEn && (
             <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{product.descriptionEn}</p>
@@ -862,7 +862,7 @@ function ProductCard({ product, onOrder, onFormOrder }: {
       </div>
 
       {/* Action buttons */}
-      <div className="px-5 pb-4 pt-1 flex flex-col gap-2">
+      <div className="px-4 pb-3 md:px-5 md:pb-4 pt-1 flex flex-col gap-2">
         <Button
           className="w-full bg-primary hover:bg-[#6D4DF4] text-white text-sm font-semibold shadow-sm shadow-primary/15 hover:shadow-primary/25 transition-all"
           onClick={() => onFormOrder(product.id)}

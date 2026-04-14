@@ -112,7 +112,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       <footer className="bg-card text-muted-foreground border-t border-border">
         {/* Top gradient line */}
         <div className="h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-        <div className="container mx-auto px-4 py-14 text-center">
+        <div className="container mx-auto px-4 py-10 md:py-14 text-center">
           {/* Brand */}
           <div className="mb-2">
             <div className="text-2xl font-bold text-foreground tracking-tight gradient-text">
