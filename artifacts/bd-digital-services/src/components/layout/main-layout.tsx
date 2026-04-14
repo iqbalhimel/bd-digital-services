@@ -109,28 +109,57 @@ export function MainLayout({ children }: MainLayoutProps) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-card text-muted-foreground py-12 border-t border-border mt-20">
-        <div className="container mx-auto px-4 text-center">
-          <div className="text-2xl font-bold text-foreground mb-4">
-            {settings?.siteName || "BD Digital Services"}
+      <footer className="bg-card text-muted-foreground border-t border-border">
+        {/* Top gradient line */}
+        <div className="h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+        <div className="container mx-auto px-4 py-14 text-center">
+          {/* Brand */}
+          <div className="mb-2">
+            <div className="text-2xl font-bold text-foreground tracking-tight gradient-text">
+              {settings?.siteName || "BD Digital Services"}
+            </div>
           </div>
-          <p className="max-w-md mx-auto mb-8 font-bn">
+          <p className="max-w-sm mx-auto mb-8 font-bn text-sm leading-relaxed text-muted-foreground/80">
             {settings?.footerText || "আপনার বিশ্বস্ত ডিজিটাল সার্ভিস পার্টনার।"}
           </p>
-          <div className="flex justify-center gap-4 mb-8">
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-white/10 transition-colors">
-              <MessageCircle className="w-5 h-5 text-white" />
+
+          {/* Social links */}
+          <div className="flex justify-center gap-3 mb-10">
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 bg-muted/40 border border-border/60 rounded-xl hover:bg-[#22C55E]/10 hover:border-[#22C55E]/30 hover:text-[#22C55E] transition-all"
+              aria-label="WhatsApp"
+            >
+              <MessageCircle className="w-5 h-5" />
             </a>
-            <a href={telegramLink} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-white/10 transition-colors">
-              <Send className="w-5 h-5 text-white" />
+            <a
+              href={telegramLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 bg-muted/40 border border-border/60 rounded-xl hover:bg-[#0088cc]/10 hover:border-[#0088cc]/30 hover:text-[#0088cc] transition-all"
+              aria-label="Telegram"
+            >
+              <Send className="w-5 h-5" />
             </a>
             {facebookLink && (
-              <a href={facebookLink} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-white/10 transition-colors">
-                <Facebook className="w-5 h-5 text-white" />
+              <a
+                href={facebookLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 bg-muted/40 border border-border/60 rounded-xl hover:bg-[#1877F2]/10 hover:border-[#1877F2]/30 hover:text-[#1877F2] transition-all"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-5 h-5" />
               </a>
             )}
           </div>
-          <p className="text-sm">
+
+          {/* Divider */}
+          <div className="w-16 h-px bg-border/60 mx-auto mb-6" />
+
+          <p className="text-xs text-muted-foreground/50">
             &copy; {new Date().getFullYear()} {settings?.siteName || "BD Digital Services"}. All rights reserved.
           </p>
         </div>

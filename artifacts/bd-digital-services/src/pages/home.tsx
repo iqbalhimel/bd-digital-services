@@ -623,118 +623,127 @@ export default function Home() {
       {/* Order Form & Payment Section */}
       <section id="order-form" className="py-24 relative">
         <div className="container mx-auto px-4">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">
+              <ShoppingCart className="w-3 h-3" /> Place Order
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-foreground">Order &amp; Payment</h2>
+            <p className="text-muted-foreground font-bn max-w-2xl mx-auto">পেমেন্ট করুন এবং ফর্ম পূরণ করুন অথবা সরাসরি হোয়াটসঅ্যাপে মেসেজ দিন</p>
+          </div>
           <div className="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
 
             {/* Payment Info */}
-            <div className="lg:col-span-2 space-y-8">
+            <div className="lg:col-span-2 space-y-6">
               <div>
-                <h2 className="text-3xl font-bold tracking-tight mb-4">Payment Info</h2>
-                <p className="text-muted-foreground font-bn">নিচের নাম্বারগুলোতে পেমেন্ট করে ফর্মটি ফিলাপ করুন অথবা সরাসরি হোয়াটসঅ্যাপে মেসেজ দিন।</p>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">
+                  <CreditCard className="w-3 h-3" /> Payment Info
+                </div>
+                <h3 className="text-2xl font-bold tracking-tight mb-2 text-foreground">Send Payment First</h3>
+                <p className="text-muted-foreground font-bn text-sm leading-relaxed">নিচের নাম্বারগুলোতে পেমেন্ট করে ফর্মটি ফিলাপ করুন অথবা সরাসরি হোয়াটসঅ্যাপে মেসেজ দিন।</p>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {/* bKash */}
-                <Card className="border-l-4 border-l-[#E2136E] shadow-md hover:shadow-lg transition-shadow">
-                  <CardContent className="p-5 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center font-extrabold text-xl text-white bg-[#E2136E] flex-shrink-0">b</div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs text-muted-foreground uppercase font-semibold tracking-wider">bKash (Personal)</p>
-                      <p className="text-xl font-bold font-mono">{bkashNumber}</p>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 w-8 p-0 flex-shrink-0 text-muted-foreground hover:text-[#E2136E]"
-                      onClick={() => handleCopy(bkashNumber, "bkash")}
-                      title="Copy number"
-                    >
-                      {copiedField === "bkash" ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
-                    </Button>
-                  </CardContent>
-                </Card>
+                <div className="flex items-center gap-4 bg-card border border-border/60 rounded-xl p-4 border-l-[3px] border-l-[#E2136E] hover:border-border/80 hover:shadow-sm transition-all">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center font-extrabold text-lg text-white bg-[#E2136E] flex-shrink-0 shadow-sm">b</div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] text-muted-foreground/70 uppercase font-semibold tracking-widest mb-0.5">bKash · Personal</p>
+                    <p className="text-xl font-bold font-mono text-foreground tracking-wider">{bkashNumber}</p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0 flex-shrink-0 text-muted-foreground/50 hover:text-[#E2136E] hover:bg-[#E2136E]/10 rounded-lg"
+                    onClick={() => handleCopy(bkashNumber, "bkash")}
+                    title="Copy number"
+                  >
+                    {copiedField === "bkash" ? <Check className="w-3.5 h-3.5 text-[#22C55E]" /> : <Copy className="w-3.5 h-3.5" />}
+                  </Button>
+                </div>
 
                 {/* Nagad */}
-                <Card className="border-l-4 border-l-[#F7941D] shadow-md hover:shadow-lg transition-shadow">
-                  <CardContent className="p-5 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center font-extrabold text-xl text-white bg-[#F7941D] flex-shrink-0">N</div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs text-muted-foreground uppercase font-semibold tracking-wider">Nagad (Personal)</p>
-                      <p className="text-xl font-bold font-mono">{nagadNumber}</p>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 w-8 p-0 flex-shrink-0 text-muted-foreground hover:text-[#F7941D]"
-                      onClick={() => handleCopy(nagadNumber, "nagad")}
-                      title="Copy number"
-                    >
-                      {copiedField === "nagad" ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
-                    </Button>
-                  </CardContent>
-                </Card>
+                <div className="flex items-center gap-4 bg-card border border-border/60 rounded-xl p-4 border-l-[3px] border-l-[#F7941D] hover:border-border/80 hover:shadow-sm transition-all">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center font-extrabold text-lg text-white bg-[#F7941D] flex-shrink-0 shadow-sm">N</div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] text-muted-foreground/70 uppercase font-semibold tracking-widest mb-0.5">Nagad · Personal</p>
+                    <p className="text-xl font-bold font-mono text-foreground tracking-wider">{nagadNumber}</p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0 flex-shrink-0 text-muted-foreground/50 hover:text-[#F7941D] hover:bg-[#F7941D]/10 rounded-lg"
+                    onClick={() => handleCopy(nagadNumber, "nagad")}
+                    title="Copy number"
+                  >
+                    {copiedField === "nagad" ? <Check className="w-3.5 h-3.5 text-[#22C55E]" /> : <Copy className="w-3.5 h-3.5" />}
+                  </Button>
+                </div>
 
                 {/* Rocket */}
-                <Card className="border-l-4 border-l-[#8C3494] shadow-md hover:shadow-lg transition-shadow">
-                  <CardContent className="p-5 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center font-extrabold text-xl text-white bg-[#8C3494] flex-shrink-0">R</div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs text-muted-foreground uppercase font-semibold tracking-wider">Rocket (Personal)</p>
-                      <p className="text-xl font-bold font-mono">{rocketNumber}</p>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 w-8 p-0 flex-shrink-0 text-muted-foreground hover:text-[#8C3494]"
-                      onClick={() => handleCopy(rocketNumber, "rocket")}
-                      title="Copy number"
-                    >
-                      {copiedField === "rocket" ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
-                    </Button>
-                  </CardContent>
-                </Card>
+                <div className="flex items-center gap-4 bg-card border border-border/60 rounded-xl p-4 border-l-[3px] border-l-[#8C3494] hover:border-border/80 hover:shadow-sm transition-all">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center font-extrabold text-lg text-white bg-[#8C3494] flex-shrink-0 shadow-sm">R</div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] text-muted-foreground/70 uppercase font-semibold tracking-widest mb-0.5">Rocket · Personal</p>
+                    <p className="text-xl font-bold font-mono text-foreground tracking-wider">{rocketNumber}</p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0 flex-shrink-0 text-muted-foreground/50 hover:text-[#8C3494] hover:bg-[#8C3494]/10 rounded-lg"
+                    onClick={() => handleCopy(rocketNumber, "rocket")}
+                    title="Copy number"
+                  >
+                    {copiedField === "rocket" ? <Check className="w-3.5 h-3.5 text-[#22C55E]" /> : <Copy className="w-3.5 h-3.5" />}
+                  </Button>
+                </div>
               </div>
 
-              <div className="bg-primary/5 rounded-2xl p-6 border border-primary/10">
-                <h4 className="font-bold text-primary flex items-center gap-2 mb-2">
-                  <Zap className="w-5 h-5" /> Quick Order?
+              <div className="bg-[#22C55E]/[0.06] rounded-2xl p-6 border border-[#22C55E]/15">
+                <h4 className="font-bold text-[#22C55E] flex items-center gap-2 mb-2 text-sm">
+                  <Zap className="w-4 h-4" /> Skip the form? Order directly
                 </h4>
-                <p className="text-sm text-muted-foreground font-bn mb-4">ফর্ম ফিলাপ করতে না চাইলে সরাসরি হোয়াটসঅ্যাপে মেসেজ দিয়ে অর্ডার করতে পারেন।</p>
-                <Button className="w-full bg-[#22C55E] hover:bg-[#16A34A] text-white" onClick={() => handleWhatsAppOrder()}>
-                  <MessageCircle className="mr-2 w-5 h-5" /> Direct WhatsApp Order
+                <p className="text-xs text-muted-foreground font-bn mb-4 leading-relaxed">ফর্ম ফিলাপ করতে না চাইলে সরাসরি হোয়াটসঅ্যাপে মেসেজ দিয়ে অর্ডার করতে পারেন।</p>
+                <Button className="w-full bg-[#22C55E] hover:bg-[#16A34A] text-white font-semibold" onClick={() => handleWhatsAppOrder()}>
+                  <MessageCircle className="mr-2 w-4 h-4" /> Direct WhatsApp Order
                 </Button>
               </div>
             </div>
 
             {/* Order Form */}
             <div className="lg:col-span-3">
-              <Card className="shadow-2xl border-t-4 border-t-primary">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Place Order Form</CardTitle>
-                  <CardDescription>Fill out this form after sending the payment.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleOrderSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="customerName">Full Name *</Label>
-                        <Input id="customerName" value={customerName} onChange={e => setCustomerName(e.target.value)} required placeholder="John Doe" />
+              <div className="bg-card border border-border/60 rounded-2xl overflow-hidden shadow-xl shadow-black/20">
+                {/* Form header accent */}
+                <div className="h-[3px] bg-gradient-to-r from-primary/0 via-primary to-primary/0" />
+                <div className="p-8">
+                  <div className="mb-7">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3 border border-primary/20 uppercase tracking-widest">
+                      <ShoppingCart className="w-3 h-3" /> Order Form
+                    </div>
+                    <h3 className="text-2xl font-bold text-foreground tracking-tight">Place Your Order</h3>
+                    <p className="text-sm text-muted-foreground mt-1">Fill out this form after sending the payment.</p>
+                  </div>
+                  <form onSubmit={handleOrderSubmit} className="space-y-5">
+                    <div className="grid md:grid-cols-2 gap-5">
+                      <div className="space-y-1.5">
+                        <Label htmlFor="customerName" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Full Name *</Label>
+                        <Input id="customerName" value={customerName} onChange={e => setCustomerName(e.target.value)} required placeholder="John Doe" className="bg-muted/30 border-border/60 focus-visible:ring-primary/20 focus-visible:border-primary/40" />
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">Phone / WhatsApp Number *</Label>
-                        <Input id="phone" value={phone} onChange={e => setPhone(e.target.value)} required placeholder="01XXX-XXXXXX" />
+                      <div className="space-y-1.5">
+                        <Label htmlFor="phone" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Phone / WhatsApp *</Label>
+                        <Input id="phone" value={phone} onChange={e => setPhone(e.target.value)} required placeholder="01XXX-XXXXXX" className="bg-muted/30 border-border/60 focus-visible:ring-primary/20 focus-visible:border-primary/40" />
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address (Optional)</Label>
-                      <Input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="email@example.com" />
+                    <div className="space-y-1.5">
+                      <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Email Address (Optional)</Label>
+                      <Input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="email@example.com" className="bg-muted/30 border-border/60 focus-visible:ring-primary/20 focus-visible:border-primary/40" />
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="product">Select Product *</Label>
+                    <div className="grid md:grid-cols-2 gap-5">
+                      <div className="space-y-1.5">
+                        <Label htmlFor="product" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Select Product *</Label>
                         <Select value={selectedProductId} onValueChange={setSelectedProductId}>
-                          <SelectTrigger>
+                          <SelectTrigger className="bg-muted/30 border-border/60 focus:ring-primary/20 focus:border-primary/40">
                             <SelectValue placeholder="Choose a product" />
                           </SelectTrigger>
                           <SelectContent>
@@ -746,10 +755,10 @@ export default function Home() {
                           </SelectContent>
                         </Select>
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="paymentMethod">Payment Sent Via *</Label>
+                      <div className="space-y-1.5">
+                        <Label htmlFor="paymentMethod" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Payment Sent Via *</Label>
                         <Select value={paymentMethod} onValueChange={setPaymentMethod}>
-                          <SelectTrigger>
+                          <SelectTrigger className="bg-muted/30 border-border/60 focus:ring-primary/20 focus:border-primary/40">
                             <SelectValue placeholder="Select method" />
                           </SelectTrigger>
                           <SelectContent>
@@ -761,23 +770,24 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Payment TrxID & Extra Message</Label>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="message" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Transaction ID &amp; Notes</Label>
                       <Textarea
                         id="message"
                         value={message}
                         onChange={e => setMessage(e.target.value)}
                         placeholder="Transaction ID: XXXXXXXX. Any other details..."
                         rows={3}
+                        className="bg-muted/30 border-border/60 focus-visible:ring-primary/20 focus-visible:border-primary/40 resize-none"
                       />
                     </div>
 
-                    <Button type="submit" className="w-full text-lg py-6 rounded-xl shadow-lg shadow-primary/20" disabled={createOrderMutation.isPending}>
+                    <Button type="submit" className="w-full text-base py-6 rounded-xl font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all" disabled={createOrderMutation.isPending}>
                       {createOrderMutation.isPending ? "Submitting Order..." : "Submit Order"}
                     </Button>
                   </form>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -794,19 +804,23 @@ export default function Home() {
             <p className="text-muted-foreground font-bn">আপনার মনে যত প্রশ্ন — সব উত্তর এখানেই</p>
           </div>
 
-          <Accordion type="single" collapsible className="w-full bg-card rounded-2xl border shadow-sm p-2">
+          <Accordion type="single" collapsible className="w-full space-y-2">
             {FAQS.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="px-4">
-                <AccordionTrigger className="text-left font-semibold text-base hover:text-primary transition-colors py-4">
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="bg-card border border-border/60 rounded-xl px-6 hover:border-border transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-card"
+              >
+                <AccordionTrigger className="text-left font-semibold text-sm hover:text-foreground text-foreground/90 transition-colors py-4 hover:no-underline gap-4 [&>svg]:text-primary/50 [&>svg]:flex-shrink-0">
                   <div>
-                    <div>{faq.question}</div>
-                    <div className="font-bn text-muted-foreground text-sm font-normal mt-0.5">{faq.questionBn}</div>
+                    <div className="leading-snug">{faq.question}</div>
+                    <div className="font-bn text-muted-foreground text-xs font-normal mt-1 leading-relaxed">{faq.questionBn}</div>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="pb-6">
-                  <div className="space-y-2">
-                    <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
-                    <p className="text-muted-foreground font-bn leading-relaxed text-sm">{faq.answerBn}</p>
+                <AccordionContent className="pb-5 pt-0">
+                  <div className="border-t border-border/40 pt-4 space-y-2">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{faq.answer}</p>
+                    <p className="text-muted-foreground font-bn leading-relaxed text-xs">{faq.answerBn}</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
