@@ -29,7 +29,7 @@ import { motion } from "framer-motion";
 import {
   CheckCircle2, ShoppingCart, Zap, Shield, HeadphonesIcon,
   CreditCard, MessageCircle, Package, Send, Star, Copy, Check,
-  Search, Users, Clock, Truck
+  Search, Users, Clock, Truck, X
 } from "lucide-react";
 import type { Product } from "@workspace/api-client-react";
 
@@ -496,34 +496,49 @@ export default function Home() {
           </div>
 
           {/* Search Bar */}
-          <div className="max-w-md mx-auto mb-8 relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Search products... / পণ্য খুঁজুন..."
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              className="pl-10 pr-4 py-3 rounded-full border-border/60 bg-card shadow-sm focus:shadow-primary/10 transition-shadow"
-            />
-            {searchQuery && (
-              <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                onClick={() => setSearchQuery("")}
-              >
-                ×
-              </button>
-            )}
+          <div className="max-w-lg mx-auto mb-10 relative">
+            <div className="relative flex items-center bg-card border border-border/60 rounded-xl transition-all duration-200 focus-within:border-primary/35 focus-within:shadow-[0_0_0_3px_rgba(124,92,255,0.07)]">
+              <Search className="absolute left-4 w-4 h-4 text-muted-foreground/50 pointer-events-none shrink-0" />
+              <Input
+                type="text"
+                placeholder="Search products... / পণ্য খুঁজুন..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                className="pl-11 pr-10 py-3 bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm placeholder:text-muted-foreground/45 text-foreground"
+              />
+              {searchQuery && (
+                <button
+                  className="absolute right-3 p-1 rounded-md text-muted-foreground/50 hover:text-foreground hover:bg-muted/60 transition-colors"
+                  onClick={() => setSearchQuery("")}
+                  aria-label="Clear search"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
           </div>
 
           <Tabs defaultValue="all" value={activeCategory} onValueChange={v => { setActiveCategory(v); setSearchQuery(""); }} className="w-full">
-            <div className="flex justify-center mb-8 overflow-x-auto pb-4 scrollbar-hide">
-              <TabsList className="h-auto p-1 bg-muted/50 rounded-full inline-flex">
-                <TabsTrigger value="all" className="rounded-full px-6 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <div className="flex justify-center mb-10 overflow-x-auto pb-1 scrollbar-hide">
+              <TabsList className="h-auto p-1 bg-card border border-border/60 rounded-xl inline-flex gap-0.5 shadow-sm">
+                <TabsTrigger
+                  value="all"
+                  className="rounded-lg px-5 py-2 text-sm font-medium text-muted-foreground transition-all
+                    data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-primary/25 data-[state=active]:shadow-none
+                    hover:text-foreground hover:bg-muted/50"
+                >
                   All
                 </TabsTrigger>
                 {categories?.filter(c => c.isActive).sort((a, b) => a.sortOrder - b.sortOrder).map(cat => (
-                  <TabsTrigger key={cat.id} value={cat.id.toString()} className="rounded-full px-6 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground flex items-center gap-2">
-                    <span>{cat.icon}</span> {cat.nameEn}
+                  <TabsTrigger
+                    key={cat.id}
+                    value={cat.id.toString()}
+                    className="rounded-lg px-5 py-2 text-sm font-medium text-muted-foreground transition-all flex items-center gap-1.5
+                      data-[state=active]:bg-primary/15 data-[state=active]:text-primary data-[state=active]:border data-[state=active]:border-primary/25 data-[state=active]:shadow-none
+                      hover:text-foreground hover:bg-muted/50"
+                  >
+                    <span className="text-base leading-none">{cat.icon}</span>
+                    <span>{cat.nameEn}</span>
                   </TabsTrigger>
                 ))}
               </TabsList>

@@ -24,7 +24,7 @@ export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full glass-card border-b-0">
+      <header className="sticky top-0 z-50 w-full glass-card border-b border-border/30">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/">
             <div className="text-xl md:text-2xl font-bold cursor-pointer gradient-text tracking-tight">
@@ -33,9 +33,13 @@ export function MainLayout({ children }: MainLayoutProps) {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex gap-6">
+          <nav className="hidden md:flex gap-1">
             {navLinks.map(link => (
-              <a key={link.href} href={link.href} className="text-sm font-medium hover:text-primary transition-colors">
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-lg hover:bg-muted/60 transition-all duration-150"
+              >
                 {link.label}
               </a>
             ))}
@@ -71,7 +75,7 @@ export function MainLayout({ children }: MainLayoutProps) {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="py-3 px-4 rounded-xl text-sm font-semibold hover:bg-primary/5 hover:text-primary transition-colors"
+                  className="py-2.5 px-4 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
