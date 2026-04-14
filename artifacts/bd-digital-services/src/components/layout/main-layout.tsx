@@ -46,7 +46,7 @@ export function MainLayout({ children }: MainLayoutProps) {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-[#25D366] text-white px-4 py-2 rounded-full font-medium hover:bg-[#128C7E] transition-colors shadow-lg"
+              className="flex items-center gap-2 bg-[#22C55E] text-white px-4 py-2 rounded-full font-medium hover:bg-[#16A34A] transition-colors shadow-lg"
             >
               <MessageCircle className="w-4 h-4" />
               <span className="hidden sm:inline">WhatsApp</span>
@@ -82,7 +82,7 @@ export function MainLayout({ children }: MainLayoutProps) {
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white px-4 py-2.5 rounded-xl font-medium text-sm"
+                  className="flex-1 flex items-center justify-center gap-2 bg-[#22C55E] text-white px-4 py-2.5 rounded-xl font-medium text-sm"
                 >
                   <MessageCircle className="w-4 h-4" /> WhatsApp
                 </a>
@@ -105,9 +105,9 @@ export function MainLayout({ children }: MainLayoutProps) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-zinc-950 text-zinc-400 py-12 border-t border-white/10 mt-20">
+      <footer className="bg-card text-muted-foreground py-12 border-t border-border mt-20">
         <div className="container mx-auto px-4 text-center">
-          <div className="text-2xl font-bold text-white mb-4">
+          <div className="text-2xl font-bold text-foreground mb-4">
             {settings?.siteName || "BD Digital Services"}
           </div>
           <p className="max-w-md mx-auto mb-8 font-bn">
@@ -146,7 +146,7 @@ export function MainLayout({ children }: MainLayoutProps) {
           href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:scale-110 transition-transform"
+          className="bg-[#22C55E] text-white p-4 rounded-full shadow-xl hover:scale-110 transition-transform"
         >
           <MessageCircle className="w-7 h-7" />
         </a>

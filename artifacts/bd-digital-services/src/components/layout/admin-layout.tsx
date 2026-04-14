@@ -37,13 +37,13 @@ export function AdminLayout({ children }: AdminLayoutProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 flex flex-col md:flex-row">
+    <div className="min-h-screen bg-background flex flex-col md:flex-row">
       <Helmet>
         <title>Admin Panel | BD Digital Services</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       {/* Mobile Header */}
-      <div className="md:hidden flex items-center justify-between p-4 bg-white dark:bg-zinc-900 border-b border-border">
+      <div className="md:hidden flex items-center justify-between p-4 bg-card border-b border-border">
         <h1 className="font-bold text-lg text-primary">Admin Panel</h1>
         <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
           {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -53,7 +53,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       {/* Sidebar */}
       <div className={`
         ${isMobileMenuOpen ? "flex" : "hidden"} 
-        md:flex flex-col w-full md:w-64 bg-white dark:bg-zinc-900 border-r border-border
+        md:flex flex-col w-full md:w-64 bg-card border-r border-border
       `}>
         <div className="hidden md:flex p-6 border-b border-border">
           <h1 className="font-bold text-xl text-primary">Admin Panel</h1>
