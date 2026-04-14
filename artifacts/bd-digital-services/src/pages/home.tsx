@@ -358,106 +358,113 @@ export default function Home() {
         </Helmet>
       ))}
       {/* Notice Banner — always visible */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-violet-600 via-fuchsia-600 to-cyan-600 py-2.5">
+      <div className="relative overflow-hidden bg-card border-b border-border py-2">
         <div className="flex whitespace-nowrap animate-marquee">
           {[0, 1].map(i => (
-            <div key={i} className="flex items-center gap-8 pr-16 shrink-0">
-              <span className="flex items-center gap-2 text-white text-sm font-semibold">
-                <Zap className="w-3.5 h-3.5 flex-shrink-0" /> {noticeText}
+            <div key={i} className="flex items-center gap-10 pr-16 shrink-0">
+              <span className="flex items-center gap-2 text-foreground text-xs font-medium">
+                <Zap className="w-3 h-3 text-primary flex-shrink-0" /> {noticeText}
               </span>
-              <span className="text-white/50">✦</span>
-              <span className="font-bn text-white text-sm">{noticeBn}</span>
-              <span className="text-white/50">✦</span>
-              <span className="flex items-center gap-2 text-white text-sm font-semibold">
-                <Shield className="w-3.5 h-3.5 flex-shrink-0" /> 100% Secure & Trusted
+              <span className="text-border">✦</span>
+              <span className="font-bn text-muted-foreground text-xs">{noticeBn}</span>
+              <span className="text-border">✦</span>
+              <span className="flex items-center gap-2 text-muted-foreground text-xs">
+                <Shield className="w-3 h-3 text-primary flex-shrink-0" /> 100% Secure &amp; Trusted
               </span>
-              <span className="text-white/50">✦</span>
-              <span className="flex items-center gap-2 text-white text-sm font-semibold">
-                <Clock className="w-3.5 h-3.5 flex-shrink-0" /> 5–30 Min Delivery
+              <span className="text-border">✦</span>
+              <span className="flex items-center gap-2 text-muted-foreground text-xs">
+                <Clock className="w-3 h-3 text-primary flex-shrink-0" /> 5–30 Min Delivery
               </span>
-              <span className="text-white/50">✦</span>
-              <span className="flex items-center gap-2 text-white text-sm font-semibold">
-                <HeadphonesIcon className="w-3.5 h-3.5 flex-shrink-0" /> 24/7 Support
+              <span className="text-border">✦</span>
+              <span className="flex items-center gap-2 text-muted-foreground text-xs">
+                <HeadphonesIcon className="w-3 h-3 text-primary flex-shrink-0" /> 24/7 Support
               </span>
-              <span className="text-white/50">✦</span>
+              <span className="text-border">✦</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 overflow-hidden bg-gradient-to-br from-violet-950 via-purple-900 to-cyan-950">
-        {/* Animated blobs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="animate-blob absolute top-[-15%] right-[-10%] w-[550px] h-[550px] rounded-full bg-violet-500/30 blur-3xl" />
-          <div className="animate-blob animation-delay-2000 absolute bottom-[-15%] left-[-10%] w-[600px] h-[600px] rounded-full bg-cyan-500/25 blur-3xl" />
-          <div className="animate-blob animation-delay-4000 absolute top-[35%] left-[25%] w-[400px] h-[400px] rounded-full bg-fuchsia-500/20 blur-3xl" />
+      <section className="relative pt-24 pb-32 overflow-hidden bg-background">
+        {/* Ambient glow — subtle, no blobs */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full bg-primary/[0.07] blur-[130px]" />
+          <div className="absolute bottom-0 right-[-100px] w-[500px] h-[400px] rounded-full bg-primary/[0.05] blur-[100px]" />
         </div>
+        {/* Dot grid texture */}
+        <div
+          className="absolute inset-0 opacity-[0.022] pointer-events-none"
+          style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)", backgroundSize: "36px 36px" }}
+        />
 
-        <div className="container mx-auto px-4 text-center text-white relative z-10">
-          <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl mx-auto space-y-8">
-            <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-semibold mb-4 backdrop-blur-sm">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              {settings?.heroBadge || "Premium Digital Products Marketplace"}
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-4xl mx-auto space-y-7">
+
+            {/* Eyebrow badge */}
+            <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse flex-shrink-0" />
+              {settings?.heroBadge || "Premium Digital Marketplace"}
             </motion.div>
 
-            <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl font-extrabold tracking-tight text-white drop-shadow-2xl">
-              {settings?.heroTitle || "Your Trusted Source For"} <br />
+            {/* Headline */}
+            <motion.h1 variants={fadeIn} className="text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-foreground leading-[1.1]">
+              {settings?.heroTitle || "Your Trusted Source For"}{" "}
               <span className="gradient-text">{settings?.heroTitleHighlight || "Digital Services"}</span>
             </motion.h1>
 
-            <motion.p variants={fadeIn} className="text-xl md:text-2xl text-white/80 font-bn leading-relaxed max-w-2xl mx-auto">
+            {/* Subtitle */}
+            <motion.p variants={fadeIn} className="text-lg md:text-xl text-muted-foreground font-bn leading-relaxed max-w-2xl mx-auto">
               {settings?.heroSubtitle || "বাংলাদেশের সবচেয়ে বিশ্বস্ত ডিজিটাল প্রোডাক্ট, একাউন্ট এবং কার্ড এর মার্কেটপ্লেস। দ্রুত ডেলিভারি এবং ২৪/৭ সাপোর্ট।"}
             </motion.p>
 
-            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            {/* CTA Buttons */}
+            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-3 justify-center pt-1">
               <Button
                 size="lg"
-                className="text-lg px-8 py-6 rounded-full bg-white text-violet-900 hover:bg-white/90 shadow-2xl hover:scale-105 transition-transform font-bold"
+                className="text-base px-8 py-5 rounded-xl bg-primary hover:bg-[#6D4DF4] text-white shadow-lg shadow-primary/20 hover:shadow-primary/35 hover:-translate-y-0.5 transition-all font-semibold"
                 onClick={() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })}
               >
                 <ShoppingCart className="mr-2 h-5 w-5" /> {settings?.heroPrimaryBtn || "Browse Products"}
               </Button>
               <Button
                 size="lg"
-                className="text-lg px-8 py-6 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white shadow-2xl hover:scale-105 transition-transform font-bold border-0"
+                className="text-base px-8 py-5 rounded-xl bg-[#22C55E] hover:bg-[#16A34A] text-white shadow-lg shadow-green-900/20 hover:-translate-y-0.5 transition-all font-semibold border-0"
                 onClick={() => handleWhatsAppOrder()}
               >
                 <MessageCircle className="mr-2 h-5 w-5" /> {settings?.heroWhatsappBtn || "Order via WhatsApp"}
               </Button>
             </motion.div>
 
-            {/* Stats Strip */}
-            <motion.div
-              variants={fadeIn}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-white/15 mt-4"
-            >
+            {/* Trust stats */}
+            <motion.div variants={fadeIn} className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-5 mt-2">
               {[
-                { icon: Users, value: settings?.heroStat1Value || "1000+", label: settings?.heroStat1Label || "সন্তুষ্ট গ্রাহক" },
-                { icon: Package, value: settings?.heroStat2Value || "15+", label: settings?.heroStat2Label || "প্রোডাক্ট" },
-                { icon: HeadphonesIcon, value: settings?.heroStat3Value || "24/7", label: settings?.heroStat3Label || "সাপোর্ট" },
-                { icon: Truck, value: settings?.heroStat4Value || "5-30 Min", label: settings?.heroStat4Label || "ডেলিভারি" },
+                { icon: Users,          value: settings?.heroStat1Value || "1000+",   label: settings?.heroStat1Label || "সন্তুষ্ট গ্রাহক" },
+                { icon: Package,        value: settings?.heroStat2Value || "15+",     label: settings?.heroStat2Label || "প্রোডাক্ট" },
+                { icon: HeadphonesIcon, value: settings?.heroStat3Value || "24/7",    label: settings?.heroStat3Label || "সাপোর্ট" },
+                { icon: Truck,          value: settings?.heroStat4Value || "5-30 Min",label: settings?.heroStat4Label || "ডেলিভারি" },
               ].map(stat => (
-                <div key={stat.label} className="flex flex-col items-center gap-1 bg-white/8 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
-                  <stat.icon className="w-5 h-5 text-cyan-300 mb-1" />
-                  <div className="text-2xl font-extrabold text-white">{stat.value}</div>
-                  <div className="text-xs text-white/60 font-bn">{stat.label}</div>
+                <div key={stat.label} className="flex flex-col items-center gap-1.5 bg-card border border-border rounded-xl p-4 hover:border-primary/25 transition-colors group">
+                  <stat.icon className="w-4 h-4 text-primary mb-0.5 group-hover:scale-110 transition-transform" />
+                  <div className="text-xl font-bold text-foreground tracking-tight">{stat.value}</div>
+                  <div className="text-[11px] text-muted-foreground font-bn leading-snug text-center">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
+
           </motion.div>
         </div>
       </section>
 
       {/* Featured Products */}
       {featuredProducts && featuredProducts.length > 0 && (
-        <section className="py-20 bg-muted/30">
+        <section className="py-20 bg-muted/20 border-y border-border">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-100 text-amber-700 text-xs font-bold mb-3 uppercase tracking-widest border border-amber-200">
-                <Star className="w-3.5 h-3.5" /> Popular Choices
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">
+                <Star className="w-3 h-3" /> Popular Choices
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">Best Sellers</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-foreground">Best Sellers</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto font-bn">আমাদের সর্বাধিক বিক্রিত ডিজিটাল সার্ভিস ও একাউন্ট</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -481,7 +488,10 @@ export default function Home() {
       <section id="products" className="py-24 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">All Products</h2>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">
+              <Package className="w-3 h-3" /> Catalog
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-foreground">All Products</h2>
             <p className="text-muted-foreground font-bn max-w-2xl mx-auto">আপনার প্রয়োজনীয় সকল ডিজিটাল সার্ভিস এক জায়গায়</p>
           </div>
 
@@ -552,39 +562,44 @@ export default function Home() {
       </section>
 
       {/* How to Order */}
-      <section id="how-to-order" className="py-24 bg-zinc-950 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070')] opacity-5 bg-cover bg-center mix-blend-luminosity" />
+      <section id="how-to-order" className="py-24 bg-muted/20 border-y border-border relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-primary/[0.04] blur-[80px]" />
+        </div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">How to Order</h2>
-            <p className="text-zinc-400 font-bn max-w-2xl mx-auto text-lg">খুব সহজেই অর্ডার করুন মাত্র ৩টি ধাপে</p>
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">
+              <Zap className="w-3 h-3" /> Simple Steps
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-foreground">How to Order</h2>
+            <p className="text-muted-foreground font-bn max-w-2xl mx-auto text-base">খুব সহজেই অর্ডার করুন মাত্র ৩টি ধাপে</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="glass-card bg-white/5 border-white/10 p-8 rounded-2xl text-center hover:-translate-y-2 transition-transform duration-300 relative group">
-              <div className="absolute top-0 right-0 p-4 text-6xl font-bold text-white/5 -z-10 group-hover:text-violet-400/10 transition-colors">1</div>
-              <div className="w-16 h-16 bg-violet-500/20 text-violet-400 rounded-2xl flex items-center justify-center mx-auto mb-6 rotate-3 group-hover:rotate-6 transition-transform">
-                <Package className="w-8 h-8" />
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="glass-card p-8 rounded-2xl text-center hover:-translate-y-1 transition-transform duration-300 relative group overflow-hidden">
+              <div className="absolute top-2 right-3 text-7xl font-black text-foreground/[0.03] select-none group-hover:text-primary/[0.06] transition-colors leading-none">1</div>
+              <div className="w-14 h-14 bg-primary/15 text-primary rounded-xl flex items-center justify-center mx-auto mb-6 rotate-2 group-hover:rotate-4 transition-transform">
+                <Package className="w-7 h-7" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Choose Product</h3>
-              <p className="text-zinc-400 font-bn">পছন্দের সার্ভিসটি সিলেক্ট করুন এবং প্রাইস চেক করুন।</p>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Choose Product</h3>
+              <p className="text-muted-foreground font-bn text-sm leading-relaxed">পছন্দের সার্ভিসটি সিলেক্ট করুন এবং প্রাইস চেক করুন।</p>
             </div>
 
-            <div className="glass-card bg-white/5 border-white/10 p-8 rounded-2xl text-center hover:-translate-y-2 transition-transform duration-300 relative group">
-              <div className="absolute top-0 right-0 p-4 text-6xl font-bold text-white/5 -z-10 group-hover:text-cyan-400/10 transition-colors">2</div>
-              <div className="w-16 h-16 bg-cyan-500/20 text-cyan-400 rounded-2xl flex items-center justify-center mx-auto mb-6 -rotate-3 group-hover:-rotate-6 transition-transform">
-                <CreditCard className="w-8 h-8" />
+            <div className="glass-card p-8 rounded-2xl text-center hover:-translate-y-1 transition-transform duration-300 relative group overflow-hidden">
+              <div className="absolute top-2 right-3 text-7xl font-black text-foreground/[0.03] select-none group-hover:text-primary/[0.06] transition-colors leading-none">2</div>
+              <div className="w-14 h-14 bg-primary/15 text-primary rounded-xl flex items-center justify-center mx-auto mb-6 -rotate-2 group-hover:-rotate-4 transition-transform">
+                <CreditCard className="w-7 h-7" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Send Payment</h3>
-              <p className="text-zinc-400 font-bn">বিকাশ, নগদ বা রকেটে পেমেন্ট করে নিচের ফর্মটি ফিলাপ করুন।</p>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Send Payment</h3>
+              <p className="text-muted-foreground font-bn text-sm leading-relaxed">বিকাশ, নগদ বা রকেটে পেমেন্ট করে নিচের ফর্মটি ফিলাপ করুন।</p>
             </div>
 
-            <div className="glass-card bg-white/5 border-white/10 p-8 rounded-2xl text-center hover:-translate-y-2 transition-transform duration-300 relative group">
-              <div className="absolute top-0 right-0 p-4 text-6xl font-bold text-white/5 -z-10 group-hover:text-amber-400/10 transition-colors">3</div>
-              <div className="w-16 h-16 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-6 rotate-3 group-hover:rotate-6 transition-transform">
-                <CheckCircle2 className="w-8 h-8" />
+            <div className="glass-card p-8 rounded-2xl text-center hover:-translate-y-1 transition-transform duration-300 relative group overflow-hidden">
+              <div className="absolute top-2 right-3 text-7xl font-black text-foreground/[0.03] select-none group-hover:text-primary/[0.06] transition-colors leading-none">3</div>
+              <div className="w-14 h-14 bg-[#22C55E]/15 text-[#22C55E] rounded-xl flex items-center justify-center mx-auto mb-6 rotate-2 group-hover:rotate-4 transition-transform">
+                <CheckCircle2 className="w-7 h-7" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Receive Account</h3>
-              <p className="text-zinc-400 font-bn">৫-৩০ মিনিটের মধ্যে হোয়াটসঅ্যাপে একাউন্ট বুঝে নিন।</p>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Receive Account</h3>
+              <p className="text-muted-foreground font-bn text-sm leading-relaxed">৫-৩০ মিনিটের মধ্যে হোয়াটসঅ্যাপে একাউন্ট বুঝে নিন।</p>
             </div>
           </div>
         </div>
@@ -669,7 +684,7 @@ export default function Home() {
                   <Zap className="w-5 h-5" /> Quick Order?
                 </h4>
                 <p className="text-sm text-muted-foreground font-bn mb-4">ফর্ম ফিলাপ করতে না চাইলে সরাসরি হোয়াটসঅ্যাপে মেসেজ দিয়ে অর্ডার করতে পারেন।</p>
-                <Button className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white" onClick={() => handleWhatsAppOrder()}>
+                <Button className="w-full bg-[#22C55E] hover:bg-[#16A34A] text-white" onClick={() => handleWhatsAppOrder()}>
                   <MessageCircle className="mr-2 w-5 h-5" /> Direct WhatsApp Order
                 </Button>
               </div>
@@ -754,10 +769,13 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-24 bg-muted/30">
+      <section id="faq" className="py-24 bg-muted/20 border-t border-border">
         <div className="container mx-auto px-4 max-w-3xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Frequently Asked Questions</h2>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 border border-primary/20 uppercase tracking-widest">
+              <CheckCircle2 className="w-3 h-3" /> FAQ
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-foreground">Frequently Asked Questions</h2>
             <p className="text-muted-foreground font-bn">আপনার মনে যত প্রশ্ন — সব উত্তর এখানেই</p>
           </div>
 
@@ -833,7 +851,7 @@ function ProductCard({ product, onOrder, onFormOrder }: {
       </CardContent>
 
       <CardFooter className="pt-0 flex flex-col gap-2 p-5 bg-card border-t border-border/50">
-        <Button className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white shadow-sm" onClick={onOrder}>
+        <Button className="w-full bg-[#22C55E] hover:bg-[#16A34A] text-white shadow-sm" onClick={onOrder}>
           <MessageCircle className="w-4 h-4 mr-2" /> Order via WhatsApp
         </Button>
         <Button variant="outline" className="w-full border-primary/20 hover:bg-primary/5 hover:text-primary" onClick={() => onFormOrder(product.id)}>
