@@ -388,7 +388,7 @@ export default function Home() {
             </motion.p>
 
             {/* CTA Buttons */}
-            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-3 justify-center pt-1">
+            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
               <Button
                 size="lg"
                 className="text-base px-8 py-5 rounded-xl bg-primary hover:bg-[#6D4DF4] text-white shadow-lg shadow-primary/20 hover:shadow-primary/35 hover:-translate-y-0.5 transition-all font-semibold"
@@ -416,7 +416,7 @@ export default function Home() {
                 <div key={stat.label} className="flex flex-col items-center gap-1.5 bg-card border border-border/60 rounded-xl p-4 hover:border-primary/25 transition-colors group">
                   <stat.icon className="w-4 h-4 text-primary mb-0.5 group-hover:scale-110 transition-transform" />
                   <div className="text-xl font-bold text-foreground tracking-tight">{stat.value}</div>
-                  <div className="text-[11px] text-muted-foreground font-bn leading-snug text-center">{stat.label}</div>
+                  <div className="text-xs text-muted-foreground font-bn leading-snug text-center">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
@@ -473,7 +473,7 @@ export default function Home() {
                 placeholder="Search products... / পণ্য খুঁজুন..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="pl-11 pr-10 py-3 bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm placeholder:text-muted-foreground/45 text-foreground"
+                className="pl-11 pr-10 py-3.5 bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm placeholder:text-muted-foreground/60 text-foreground"
               />
               {searchQuery && (
                 <button
@@ -780,16 +780,16 @@ export default function Home() {
                 value={`item-${index}`}
                 className="bg-card border border-border/60 rounded-xl px-6 hover:border-border transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-card"
               >
-                <AccordionTrigger className="text-left font-semibold text-sm hover:text-foreground text-foreground/90 transition-colors py-4 hover:no-underline gap-4 [&>svg]:text-primary/50 [&>svg]:flex-shrink-0">
+                <AccordionTrigger className="text-left font-semibold text-base hover:text-foreground text-foreground/90 transition-colors py-4 hover:no-underline gap-4 [&>svg]:text-primary/50 [&>svg]:flex-shrink-0">
                   <div>
                     <div className="leading-snug">{faq.question}</div>
-                    <div className="font-bn text-muted-foreground text-xs font-normal mt-1 leading-relaxed">{faq.questionBn}</div>
+                    <div className="font-bn text-muted-foreground text-sm font-normal mt-1 leading-relaxed">{faq.questionBn}</div>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-5 pt-0">
                   <div className="border-t border-border/40 pt-4 space-y-2">
                     <p className="text-muted-foreground leading-relaxed text-sm">{faq.answer}</p>
-                    <p className="text-muted-foreground font-bn leading-relaxed text-xs">{faq.answerBn}</p>
+                    <p className="text-muted-foreground font-bn leading-relaxed text-sm">{faq.answerBn}</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
@@ -830,14 +830,14 @@ function ProductCard({ product, onOrder, onFormOrder }: {
           </p>
         )}
 
-        <h3 className={`text-sm font-bold text-foreground leading-snug ${product.badge ? "pr-16" : ""}`}>
+        <h3 className={`text-base font-bold text-foreground leading-snug ${product.badge ? "pr-16" : ""}`}>
           {product.nameEn}
         </h3>
         {product.nameBn && (
-          <p className="text-xs text-muted-foreground font-bn mt-0.5">{product.nameBn}</p>
+          <p className="text-sm text-muted-foreground font-bn mt-0.5 leading-relaxed">{product.nameBn}</p>
         )}
 
-        <div className="mt-4 flex items-baseline gap-2">
+        <div className="mt-3 flex items-baseline gap-2">
           <span className={`font-bold tracking-tight ${priceIsFree ? "text-sm text-muted-foreground" : "text-2xl text-foreground"}`}>
             {priceDisplay}
           </span>
@@ -850,19 +850,19 @@ function ProductCard({ product, onOrder, onFormOrder }: {
       <div className="mx-5 h-px bg-border/50" />
 
       {/* Description */}
-      <div className="flex-1 px-5 py-4">
+      <div className="flex-1 px-5 py-3">
         <div className="space-y-1.5">
           {product.descriptionEn && (
             <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{product.descriptionEn}</p>
           )}
           {product.descriptionBn && (
-            <p className="text-xs text-muted-foreground font-bn leading-relaxed">{product.descriptionBn}</p>
+            <p className="text-xs text-muted-foreground font-bn leading-relaxed line-clamp-2">{product.descriptionBn}</p>
           )}
         </div>
       </div>
 
       {/* Action buttons */}
-      <div className="px-5 pb-5 pt-1 flex flex-col gap-2">
+      <div className="px-5 pb-4 pt-1 flex flex-col gap-2">
         <Button
           className="w-full bg-primary hover:bg-[#6D4DF4] text-white text-sm font-semibold shadow-sm shadow-primary/15 hover:shadow-primary/25 transition-all"
           onClick={() => onFormOrder(product.id)}

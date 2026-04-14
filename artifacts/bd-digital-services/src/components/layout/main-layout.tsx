@@ -119,12 +119,32 @@ export function MainLayout({ children }: MainLayoutProps) {
               {settings?.siteName || "BD Digital Services"}
             </div>
           </div>
-          <p className="max-w-sm mx-auto mb-8 font-bn text-sm leading-relaxed text-muted-foreground/80">
+          <p className="max-w-sm mx-auto mb-7 font-bn text-sm leading-relaxed text-muted-foreground/80">
             {settings?.footerText || "আপনার বিশ্বস্ত ডিজিটাল সার্ভিস পার্টনার।"}
           </p>
 
+          {/* Quick nav links */}
+          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
+            {[
+              { href: "#products", label: "Products" },
+              { href: "#how-to-order", label: "How to Order" },
+              { href: "#faq", label: "FAQ" },
+              { href: whatsappLink, label: "WhatsApp", external: true },
+              { href: telegramLink, label: "Telegram", external: true },
+            ].map(link => (
+              <a
+                key={link.label}
+                href={link.href}
+                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="text-sm text-muted-foreground/70 hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
           {/* Social links */}
-          <div className="flex justify-center gap-3 mb-10">
+          <div className="flex justify-center gap-3 mb-8">
             <a
               href={whatsappLink}
               target="_blank"
@@ -156,8 +176,13 @@ export function MainLayout({ children }: MainLayoutProps) {
             )}
           </div>
 
+          {/* Trust note */}
+          <p className="text-xs text-muted-foreground/50 font-bn max-w-xs mx-auto mb-7 leading-relaxed">
+            বাংলাদেশের যাচাইকৃত ডিজিটাল মার্কেটপ্লেস — ১০০% নিরাপদ ও বিশ্বস্ত লেনদেন।
+          </p>
+
           {/* Divider */}
-          <div className="w-16 h-px bg-border/60 mx-auto mb-6" />
+          <div className="w-full h-px bg-border/40 mb-6" />
 
           <p className="text-xs text-muted-foreground/50">
             &copy; {new Date().getFullYear()} {settings?.siteName || "BD Digital Services"}. All rights reserved.
@@ -166,22 +191,24 @@ export function MainLayout({ children }: MainLayoutProps) {
       </footer>
 
       {/* Floating Action Buttons */}
-      <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+      <div className="fixed bottom-20 md:bottom-6 right-4 md:right-6 flex flex-col gap-2.5 z-50">
         <a
           href={telegramLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-[#0088cc] text-white p-3 rounded-full shadow-xl hover:scale-110 transition-transform"
+          className="bg-[#0088cc] text-white p-2.5 md:p-3 rounded-full shadow-lg hover:scale-105 transition-transform"
+          aria-label="Telegram"
         >
-          <Send className="w-6 h-6" />
+          <Send className="w-5 h-5" />
         </a>
         <a
           href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-[#22C55E] text-white p-4 rounded-full shadow-xl hover:scale-110 transition-transform"
+          className="bg-[#22C55E] text-white p-2.5 md:p-3 rounded-full shadow-lg hover:scale-105 transition-transform"
+          aria-label="WhatsApp"
         >
-          <MessageCircle className="w-7 h-7" />
+          <MessageCircle className="w-5 h-5" />
         </a>
       </div>
     </div>
