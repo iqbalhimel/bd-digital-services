@@ -24,6 +24,10 @@ args = "API Server"
 task = "workflow.run"
 args = "Frontend"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "GitHub Auto-Sync"
+
 [[workflows.workflow]]
 name = "API Server"
 author = "agent"
@@ -47,6 +51,17 @@ outputType = "webview"
 task = "shell.exec"
 args = "PORT=18910 BASE_PATH=/ pnpm --filter @workspace/bd-digital-services run dev"
 waitForPort = 18910
+
+[[workflows.workflow]]
+name = "GitHub Auto-Sync"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash scripts/github-sync.sh"
+
+[workflows.workflow.metadata]
+outputType = "console"
 
 [agent]
 stack = "PNPM_WORKSPACE"
