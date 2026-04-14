@@ -256,8 +256,8 @@ export default function AdminProducts() {
           </Dialog>
         </div>
 
-        <div className="rounded-md border bg-card">
-          <Table>
+        <div className="rounded-md border bg-card overflow-x-auto">
+          <Table className="min-w-[600px]">
             <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>

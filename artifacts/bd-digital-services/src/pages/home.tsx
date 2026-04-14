@@ -528,7 +528,9 @@ export default function Home() {
                     onOrder={() => handleWhatsAppOrder(product)}
                     onFormOrder={id => {
                       setSelectedProductId(id.toString());
-                      document.getElementById("order-form")?.scrollIntoView({ behavior: "smooth" });
+                      setTimeout(() => {
+                        document.getElementById("order-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }, 100);
                     }}
                   />
                 ))}
@@ -792,7 +794,7 @@ function ProductCard({ product, onOrder, onFormOrder }: {
   const priceIsFree = priceNum === 0;
 
   return (
-    <Card className="flex flex-col h-full overflow-hidden hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 border-border/50 group bg-card">
+    <Card className="flex flex-col h-full overflow-hidden md:hover:shadow-xl md:hover:shadow-primary/10 md:hover:-translate-y-1 transition-all duration-300 border-border/50 group bg-card">
       {/* Colorful gradient header */}
       <div className={`bg-gradient-to-br ${gradient} p-5 relative`}>
         {product.badge && (
