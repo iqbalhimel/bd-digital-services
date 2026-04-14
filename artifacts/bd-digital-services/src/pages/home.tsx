@@ -528,9 +528,11 @@ export default function Home() {
                     onOrder={() => handleWhatsAppOrder(product)}
                     onFormOrder={id => {
                       setSelectedProductId(id.toString());
-                      setTimeout(() => {
-                        document.getElementById("order-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
-                      }, 100);
+                      requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                          document.getElementById("order-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                        });
+                      });
                     }}
                   />
                 ))}
