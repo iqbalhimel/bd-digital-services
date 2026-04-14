@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Helmet } from "react-helmet-async";
 import { 
@@ -21,6 +21,15 @@ interface AdminLayoutProps {
 export function AdminLayout({ children }: AdminLayoutProps) {
   const [location, setLocation] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const wasDark = root.classList.contains("dark");
+    root.classList.add("dark");
+    return () => {
+      if (!wasDark) root.classList.remove("dark");
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("admin_token");

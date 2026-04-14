@@ -89,23 +89,32 @@ export function MainLayout({ children }: MainLayoutProps) {
                   {link.label}
                 </a>
               ))}
-              <div className="pt-3 mt-2 border-t border-border/50 flex gap-2">
-                <a
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 bg-[#22C55E] text-white px-4 py-2.5 rounded-xl font-medium text-sm"
+              <div className="pt-3 mt-2 border-t border-border/50 space-y-3">
+                <button
+                  onClick={toggleTheme}
+                  className="w-full flex items-center gap-3 py-2.5 px-4 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all"
                 >
-                  <MessageCircle className="w-4 h-4" /> WhatsApp
-                </a>
-                <a
-                  href={telegramLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 bg-[#0088cc] text-white px-4 py-2.5 rounded-xl font-medium text-sm"
-                >
-                  <Send className="w-4 h-4" /> Telegram
-                </a>
+                  {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                </button>
+                <div className="flex gap-2">
+                  <a
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 bg-[#22C55E] text-white px-4 py-2.5 rounded-xl font-medium text-sm"
+                  >
+                    <MessageCircle className="w-4 h-4" /> WhatsApp
+                  </a>
+                  <a
+                    href={telegramLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 bg-[#0088cc] text-white px-4 py-2.5 rounded-xl font-medium text-sm"
+                  >
+                    <Send className="w-4 h-4" /> Telegram
+                  </a>
+                </div>
               </div>
           </nav>
         </div>
