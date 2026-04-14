@@ -29,13 +29,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } else {
       root.classList.remove("dark");
     }
-    localStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
     const root = document.documentElement;
     root.setAttribute("data-transitioning", "");
-    setTheme(prev => (prev === "dark" ? "light" : "dark"));
+    setTheme(prev => {
+      const next = prev === "dark" ? "light" : "dark";
+      localStorage.setItem(STORAGE_KEY, next);
+      return next;
+    });
     setTimeout(() => root.removeAttribute("data-transitioning"), 250);
   }, []);
 
