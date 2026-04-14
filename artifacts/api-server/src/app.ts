@@ -12,17 +12,21 @@ import { globalLimiter } from "./middlewares/rateLimits";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isProduction = process.env.NODE_ENV === "production";
 
+const replitDevDomainPattern = process.env.REPLIT_DEV_DOMAIN
+  ? new RegExp(`^https://${process.env.REPLIT_DEV_DOMAIN.replace(/\./g, "\\.")}(:\\d+)?$`)
+  : null;
+
 const allowedOrigins = isProduction
   ? [
       "https://bddigitalservices.com",
       "https://www.bddigitalservices.com",
-      process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "",
-    ].filter(Boolean)
+      ...(replitDevDomainPattern ? [replitDevDomainPattern] : []),
+    ]
   : [
       /^https?:\/\/localhost(:\d+)?$/,
       /^https?:\/\/127\.0\.0\.1(:\d+)?$/,
-      process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : "",
-    ].filter(Boolean);
+      ...(replitDevDomainPattern ? [replitDevDomainPattern] : []),
+    ];
 
 const corsOptions: cors.CorsOptions = {
   origin(origin, callback) {
